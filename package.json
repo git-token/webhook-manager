@@ -1,0 +1,19 @@
+{
+  "name": "gittoken-webhook-manager",
+  "version": "0.0.1",
+  "description": "GitToken Manager for GitHub Web Hook Events",
+  "main": "./dist/index",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "GitToken",
+    "Ethereum",
+    "ERC20",
+    "Tokens",
+    "Git",
+    "GitHub"
+  ],
+  "author": "Ryan Tate <ryan.tate@gittoken.io>",
+  "license": "MIT"
+}
