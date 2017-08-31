@@ -4,7 +4,8 @@
   "description": "GitToken Manager for GitHub Web Hook Events",
   "main": "./dist/index",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "build": "babel ./src/ --out-dir ./dist/ --plugins transform-runtime"
   },
   "keywords": [
     "GitToken",
@@ -15,5 +16,23 @@
     "GitHub"
   ],
   "author": "Ryan Tate <ryan.tate@gittoken.io>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "cors": "^2.8.4",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.4",
+    "hyperlog": "^4.12.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-plugin-inline-import": "^2.0.5",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.5.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "babel-runtime": "^6.23.0",
+    "chai": "^4.0.1"
+  }
 }
