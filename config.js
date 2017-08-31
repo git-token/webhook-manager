@@ -7,7 +7,7 @@
  require('dotenv').config({ path: `${process.cwd()}/.env`})
 
 /**
- * Configuration file for GitToken server instance
+ * Configuration file for GitToken Web Hook Manager instance
  * This file parses the environment variable passed to the docker-compose.yml
  * env_file field, then exports the configuration to be used in the application.
  * @type {Object}
@@ -15,7 +15,10 @@
 
 
 const config = {
-  port: process.env['WEBHOOK_MANAGER_PORT']
+  port: process.env['WEBHOOK_MANAGER_PORT'],
+  recoveryShare: process.env['RECOVERY_SHARE'],
+  signerIpcPath: process.env['SIGNER_IPC_PATH'],
+  logDBPath: process.env['LOG_DB_PATH']
 }
 
 module.exports = config

@@ -22,7 +22,8 @@
     "cors": "^2.8.4",
     "dotenv": "^4.0.0",
     "express": "^4.15.4",
-    "hyperlog": "^4.12.1"
+    "hyperlog": "^4.12.1",
+    "level": "^1.7.0"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",

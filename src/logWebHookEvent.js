@@ -1,7 +1,5 @@
 import Promise from 'bluebird'
 
-export default function logWebHookEvent() {
-  return new Promise((resolve, reject) => {
-
-  })
+export default function logWebHookEvent(req, res) {
+  
 }
