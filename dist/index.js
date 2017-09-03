@@ -82,21 +82,26 @@ var GitTokenWebHookManager = function () {
     this.signerIpcPath = signerIpcPath;
 
     this.recoveryShare = recoveryShare;
-    this.signerConnect
+    this.signerConnect();
+
+    this.signer.on('end', function () {
+      console.log('Connection to GitToken Signer Closed.');
+      _this.signerReconnect();
+    });
+
+    this.signer.on('error', function () {
+      console.log('Connection Error to GitToken Signer.');
+      _this.signerReconnect();
+    }
 
     // Hyperlog DAG Store
-    ();this.level = (0, _level2.default)(logDBPath);
+    );this.level = (0, _level2.default)(logDBPath);
     this.log = (0, _hyperlog2.default)(this.level, {
       id: 'GitToken',
       // Use GitToken Signer to sign nodes
       identity: null,
       sign: this.signLog,
       verify: this.verifyLog
-    });
-
-    this.signer.on('end', function () {
-      console.log('Connected to Signer Exiting');
-      _this.signerReconnect();
     }
 
     // Express Application
@@ -131,10 +136,6 @@ var GitTokenWebHookManager = function () {
             _this2.log.identity = result;
           }
         });
-      });
-
-      this.signer.on('error', function () {
-        _this2.signerReconnect();
       });
     }
   }, {
