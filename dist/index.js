@@ -4,6 +4,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _stringify = require('babel-runtime/core-js/json/stringify');
+
+var _stringify2 = _interopRequireDefault(_stringify);
+
 var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
@@ -51,6 +55,8 @@ var _logWebHookEvent2 = _interopRequireDefault(_logWebHookEvent);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var GitTokenWebHookManager = function GitTokenWebHookManager(_ref) {
+  var _this = this;
+
   var port = _ref.port,
       signerIpcPath = _ref.signerIpcPath,
       logDBPath = _ref.logDBPath,
@@ -69,12 +75,22 @@ var GitTokenWebHookManager = function GitTokenWebHookManager(_ref) {
 
   // Hyperlog DAG Store
   );this.level = (0, _level2.default)(logDBPath);
-  this.log = (0, _hyperlog2.default)(this.level, {
-    id: 'GitToken',
-    // Use GitToken Signer to sign nodes
-    identity: this.signerAddress(),
-    sign: this.signLog,
-    verify: this.verifyLog
+  this.signer.write((0, _stringify2.default)({ event: 'get_address' }));
+  this.signer.on('data', function (msg) {
+    var _JSON$parse = JSON.parse(msg),
+        event = _JSON$parse.event,
+        result = _JSON$parse.result;
+
+    if (event == 'get_address') {
+      console.log('Connected to GitToken Signer: ', result);
+      _this.log = (0, _hyperlog2.default)(_this.level, {
+        id: 'GitToken',
+        // Use GitToken Signer to sign nodes
+        identity: result,
+        sign: _this.signLog,
+        verify: _this.verifyLog
+      });
+    }
   }
 
   // Express Application
@@ -86,7 +102,7 @@ var GitTokenWebHookManager = function GitTokenWebHookManager(_ref) {
   );this.app.post('/', this.logWebHookEvent);
 
   this.app.listen(port, function () {
-    console.log('GitToken Server Listening on Port ' + port);
+    console.log('GitToken Web Hook Manager Listening for Events on Port ' + port);
   });
 };
 

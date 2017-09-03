@@ -9,6 +9,7 @@ import signLog from './signLog'
 import verifyLog from './verifyLog'
 import signerAddress from './signerAddress'
 import logWebHookEvent from './logWebHookEvent'
+import handleWebHookEvent from './handleWebHookEvent'
 
 export default class GitTokenWebHookManager {
   constructor({ port, signerIpcPath, logDBPath, recoveryShare }) {
@@ -24,14 +25,20 @@ export default class GitTokenWebHookManager {
 
     // Hyperlog DAG Store
     this.level = level(logDBPath)
-    this.log = hyperlog(this.level, {
-      id: 'GitToken',
-      // Use GitToken Signer to sign nodes
-      identity: this.signerAddress(),
-      sign: this.signLog,
-      verify: this.verifyLog
+    this.signer.write(JSON.stringify({ event: 'get_address' }))
+    this.signer.on('data', (msg) => {
+      const { event, result } = JSON.parse(msg)
+      if (event == 'get_address') {
+        console.log('Connected to GitToken Signer: ', result)
+        this.log = hyperlog(this.level, {
+          id: 'GitToken',
+          // Use GitToken Signer to sign nodes
+          identity: result,
+          sign: this.signLog,
+          verify: this.verifyLog
+        })
+      }
     })
-
 
     // Express Application
     this.app = express()
@@ -39,7 +46,7 @@ export default class GitTokenWebHookManager {
     this.app.use(cors())
     this.app.use(bodyParser.json()) // handle json data
     this.app.use(bodyParser.urlencoded({ extended: true })) // handle URL-encoded data
-    this.app.post('/', this.logWebHookEvent)
+    this.app.post('/', this.handleWebHookEvent)
 
     this.app.listen(port, () => {
       console.log(`GitToken Web Hook Manager Listening for Events on Port ${port}`)

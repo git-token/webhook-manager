@@ -1,0 +1,24 @@
+version: '3.0'
+volumes:
+  gittoken-volume:
+services:
+  signer:
+    env_file:
+      - signer.env
+    build:
+      context: ./node_modules/gittoken-signer/.
+    ipc: host
+    volumes:
+      - gittoken-volume:/tmp/
+  webhookmgr:
+    ports:
+      - 3000:3000
+    env_file:
+      - .env
+    build:
+      context: .
+    depends_on:
+      - signer
+    ipc: signer
+    volumes:
+      - gittoken-volume:/tmp/

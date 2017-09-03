@@ -5,7 +5,8 @@
   "main": "./dist/index",
   "scripts": {
     "test": "mocha",
-    "build": "babel ./src/ --out-dir ./dist/ --plugins transform-runtime"
+    "build": "babel ./src/ --out-dir ./dist/ --plugins transform-runtime",
+    "start": "node examples/manager.js"
   },
   "keywords": [
     "GitToken",
@@ -18,12 +19,16 @@
   "author": "Ryan Tate <ryan.tate@gittoken.io>",
   "license": "MIT",
   "dependencies": {
+    "bluebird": "^3.5.0",
     "body-parser": "^1.17.2",
     "cors": "^2.8.4",
     "dotenv": "^4.0.0",
+    "ethereumjs-util": "^5.1.2",
     "express": "^4.15.4",
+    "gittoken-signer": "0.0.5",
     "hyperlog": "^4.12.1",
-    "level": "^1.7.0"
+    "level": "^1.7.0",
+    "web3": "^0.20.0"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",
@@ -31,6 +36,7 @@
     "babel-plugin-inline-import": "^2.0.5",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.5.1",
+    "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "babel-runtime": "^6.23.0",

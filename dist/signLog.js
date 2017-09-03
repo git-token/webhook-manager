@@ -29,7 +29,7 @@ function signLog(node, cb) {
         result = _JSON$parse.result;
 
     if (event == 'sign_message') {
-      cb(null, Buffer(result));
+      cb(null, (0, _stringify2.default)(result));
     }
   });
 }

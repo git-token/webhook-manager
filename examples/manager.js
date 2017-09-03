@@ -1,3 +1,4 @@
+const Promise = require('bluebird')
 const GitTokenWebHookManager = require('../dist/index').default
 
 const {

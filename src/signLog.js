@@ -12,7 +12,7 @@ export default function signLog(node, cb) {
   this.signer.on('data', (msg) => {
     const { event, result } = JSON.parse(msg)
     if (event == 'sign_message') {
-      cb(null, Buffer(result));
+      cb(null, JSON.stringify(result));
     }
   })
 }

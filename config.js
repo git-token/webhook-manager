@@ -1,7 +1,7 @@
 
 /**
  * NOTE If running the server using NodeJS instead of docker-compose, uncomment the line
- * below to read the .env file and map to gittoken.config
+ * below to read the .env file and map to config
  */
 
  require('dotenv').config({ path: `${process.cwd()}/.env`})
@@ -18,7 +18,8 @@ const config = {
   port: process.env['WEBHOOK_MANAGER_PORT'],
   recoveryShare: process.env['RECOVERY_SHARE'],
   signerIpcPath: process.env['SIGNER_IPC_PATH'],
-  logDBPath: process.env['LOG_DB_PATH']
+  logDBPath: process.env['LOG_DB_PATH'],
+  recover: process.env['RECOVER_KEYSTORE']
 }
 
 module.exports = config
