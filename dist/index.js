@@ -12,6 +12,10 @@ var _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
+var _createClass2 = require('babel-runtime/helpers/createClass');
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
 var _express = require('express');
 
 var _express2 = _interopRequireDefault(_express);
@@ -52,58 +56,100 @@ var _logWebHookEvent = require('./logWebHookEvent');
 
 var _logWebHookEvent2 = _interopRequireDefault(_logWebHookEvent);
 
+var _handleWebHookEvent = require('./handleWebHookEvent');
+
+var _handleWebHookEvent2 = _interopRequireDefault(_handleWebHookEvent);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var GitTokenWebHookManager = function GitTokenWebHookManager(_ref) {
-  var _this = this;
+var GitTokenWebHookManager = function () {
+  function GitTokenWebHookManager(_ref) {
+    var _this = this;
 
-  var port = _ref.port,
-      signerIpcPath = _ref.signerIpcPath,
-      logDBPath = _ref.logDBPath,
-      recoveryShare = _ref.recoveryShare;
-  (0, _classCallCheck3.default)(this, GitTokenWebHookManager);
+    var port = _ref.port,
+        signerIpcPath = _ref.signerIpcPath,
+        logDBPath = _ref.logDBPath,
+        recoveryShare = _ref.recoveryShare;
+    (0, _classCallCheck3.default)(this, GitTokenWebHookManager);
 
 
-  // Web Hook Mgr. Bound methods
-  this.signLog = _signLog2.default.bind(this);
-  this.verifyLog = _verifyLog2.default.bind(this);
-  this.signerAddress = _signerAddress2.default.bind(this);
-  this.logWebHookEvent = _logWebHookEvent2.default.bind(this);
+    // Web Hook Mgr. Bound methods
+    this.signLog = _signLog2.default.bind(this);
+    this.verifyLog = _verifyLog2.default.bind(this);
+    this.signerAddress = _signerAddress2.default.bind(this);
+    this.logWebHookEvent = _logWebHookEvent2.default.bind(this);
+    this.handleWebHookEvent = _handleWebHookEvent2.default.bind(this);
+    this.signerIpcPath = signerIpcPath;
 
-  this.recoveryShare = recoveryShare;
-  this.signer = _net2.default.connect(signerIpcPath
+    this.recoveryShare = recoveryShare;
+    this.signerConnect
 
-  // Hyperlog DAG Store
-  );this.level = (0, _level2.default)(logDBPath);
-  this.signer.write((0, _stringify2.default)({ event: 'get_address' }));
-  this.signer.on('data', function (msg) {
-    var _JSON$parse = JSON.parse(msg),
-        event = _JSON$parse.event,
-        result = _JSON$parse.result;
+    // Hyperlog DAG Store
+    ();this.level = (0, _level2.default)(logDBPath);
+    this.log = (0, _hyperlog2.default)(this.level, {
+      id: 'GitToken',
+      // Use GitToken Signer to sign nodes
+      identity: null,
+      sign: this.signLog,
+      verify: this.verifyLog
+    });
 
-    if (event == 'get_address') {
-      console.log('Connected to GitToken Signer: ', result);
-      _this.log = (0, _hyperlog2.default)(_this.level, {
-        id: 'GitToken',
-        // Use GitToken Signer to sign nodes
-        identity: result,
-        sign: _this.signLog,
-        verify: _this.verifyLog
-      });
+    this.signer.on('end', function () {
+      console.log('Connected to Signer Exiting');
+      _this.signerReconnect();
     }
+
+    // Express Application
+    );this.app = (0, _express2.default)();
+
+    this.app.use((0, _cors2.default)());
+    this.app.use(_bodyParser2.default.json() // handle json data
+    );this.app.use(_bodyParser2.default.urlencoded({ extended: true }) // handle URL-encoded data
+    );this.app.post('/', this.handleWebHookEvent);
+
+    this.app.listen(port, function () {
+      console.log('GitToken Web Hook Manager Listening for Events on Port ' + port);
+    });
   }
 
-  // Express Application
-  );this.app = (0, _express2.default)();
+  (0, _createClass3.default)(GitTokenWebHookManager, [{
+    key: 'signerConnect',
+    value: function signerConnect() {
+      var _this2 = this;
 
-  this.app.use((0, _cors2.default)());
-  this.app.use(_bodyParser2.default.json() // handle json data
-  );this.app.use(_bodyParser2.default.urlencoded({ extended: true }) // handle URL-encoded data
-  );this.app.post('/', this.logWebHookEvent);
+      this.signer = _net2.default.connect(this.signerIpcPath);
+      this.signer.on('connect', function () {
+        console.log('Connected to GitToken Signer');
+        _this2.signer.write((0, _stringify2.default)({ event: 'get_address' }));
+        _this2.signer.on('data', function (msg) {
+          var _JSON$parse = JSON.parse(msg),
+              event = _JSON$parse.event,
+              result = _JSON$parse.result;
 
-  this.app.listen(port, function () {
-    console.log('GitToken Web Hook Manager Listening for Events on Port ' + port);
-  });
-};
+          if (event == 'get_address') {
+            console.log('GitToken Signer Address: ', result);
+            _this2.log.identity = result;
+          }
+        });
+      });
+
+      this.signer.on('error', function () {
+        _this2.signerReconnect();
+      });
+    }
+  }, {
+    key: 'signerReconnect',
+    value: function signerReconnect() {
+      var _this3 = this;
+
+      console.log('Attempting to Reconnect in 15 seconds...');
+      setTimeout(function () {
+        console.log('Attempting to Reconnect.');
+        _this3.signerConnect();
+      }, 1000 * 15);
+    }
+  }]);
+  return GitTokenWebHookManager;
+}();
 
 exports.default = GitTokenWebHookManager;

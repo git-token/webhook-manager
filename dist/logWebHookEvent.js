@@ -16,16 +16,18 @@ var _bluebird2 = _interopRequireDefault(_bluebird);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function logWebHookEvent(req, res) {
-  var headers = req.headers,
-      body = req.body;
+function logWebHookEvent(_ref) {
+  var _this = this;
 
+  var headers = _ref.headers,
+      body = _ref.body;
 
-  this.log.add(null, (0, _stringify2.default)({ headers: headers, body: body }), function (error, node) {
-    if (error) {
-      res.status(500).send(error.message);
-    }
-    console.log('node', node);
-    res.status(200).send(node);
+  return new _bluebird2.default(function (resolve, reject) {
+    _this.log.add(null, (0, _stringify2.default)({ headers: headers, body: body }), function (error, node) {
+      if (error) {
+        reject(error);
+      }
+      resolve(node);
+    });
   });
 }
