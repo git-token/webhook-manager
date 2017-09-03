@@ -64,8 +64,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var GitTokenWebHookManager = function () {
   function GitTokenWebHookManager(_ref) {
-    var _this = this;
-
     var port = _ref.port,
         signerIpcPath = _ref.signerIpcPath,
         logDBPath = _ref.logDBPath,
@@ -82,20 +80,10 @@ var GitTokenWebHookManager = function () {
     this.signerIpcPath = signerIpcPath;
 
     this.recoveryShare = recoveryShare;
-    this.signerConnect();
-
-    this.signer.on('end', function () {
-      console.log('Connection to GitToken Signer Closed.');
-      _this.signerReconnect();
-    });
-
-    this.signer.on('error', function () {
-      console.log('Connection Error to GitToken Signer.');
-      _this.signerReconnect();
-    }
+    this.signerConnect
 
     // Hyperlog DAG Store
-    );this.level = (0, _level2.default)(logDBPath);
+    ();this.level = (0, _level2.default)(logDBPath);
     this.log = (0, _hyperlog2.default)(this.level, {
       id: 'GitToken',
       // Use GitToken Signer to sign nodes
@@ -120,33 +108,43 @@ var GitTokenWebHookManager = function () {
   (0, _createClass3.default)(GitTokenWebHookManager, [{
     key: 'signerConnect',
     value: function signerConnect() {
-      var _this2 = this;
+      var _this = this;
 
       this.signer = _net2.default.connect(this.signerIpcPath);
       this.signer.on('connect', function () {
         console.log('Connected to GitToken Signer');
-        _this2.signer.write((0, _stringify2.default)({ event: 'get_address' }));
-        _this2.signer.on('data', function (msg) {
+        _this.signer.write((0, _stringify2.default)({ event: 'get_address' }));
+        _this.signer.on('data', function (msg) {
           var _JSON$parse = JSON.parse(msg),
               event = _JSON$parse.event,
               result = _JSON$parse.result;
 
           if (event == 'get_address') {
             console.log('GitToken Signer Address: ', result);
-            _this2.log.identity = result;
+            _this.log.identity = result;
           }
         });
+      });
+
+      this.signer.on('error', function () {
+        console.log('Connection Error to GitToken Signer.');
+        _this.signerReconnect();
+      });
+
+      this.signer.on('end', function () {
+        console.log('Connection to GitToken Signer Closed.');
+        _this.signerReconnect();
       });
     }
   }, {
     key: 'signerReconnect',
     value: function signerReconnect() {
-      var _this3 = this;
+      var _this2 = this;
 
       console.log('Attempting to Reconnect in 15 seconds...');
       setTimeout(function () {
         console.log('Attempting to Reconnect.');
-        _this3.signerConnect();
+        _this2.signerConnect();
       }, 1000 * 15);
     }
   }]);

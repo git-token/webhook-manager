@@ -25,16 +25,6 @@ export default class GitTokenWebHookManager {
     this.recoveryShare   = recoveryShare
     this.signerConnect()
 
-    this.signer.on('end', () => {
-      console.log('Connection to GitToken Signer Closed.')
-      this.signerReconnect()
-    })
-
-    this.signer.on('error', () => {
-      console.log('Connection Error to GitToken Signer.')
-      this.signerReconnect()
-    })
-
     // Hyperlog DAG Store
     this.level = level(logDBPath)
     this.log = hyperlog(this.level, {
@@ -70,6 +60,16 @@ export default class GitTokenWebHookManager {
           this.log.identity = result
         }
       })
+    })
+
+    this.signer.on('error', () => {
+      console.log('Connection Error to GitToken Signer.')
+      this.signerReconnect()
+    })
+
+    this.signer.on('end', () => {
+      console.log('Connection to GitToken Signer Closed.')
+      this.signerReconnect()
     })
   }
 
