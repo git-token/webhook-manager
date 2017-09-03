@@ -35,11 +35,6 @@ export default class GitTokenWebHookManager {
       verify: this.verifyLog
     })
 
-    this.signer.on('end', () => {
-      console.log('Connected to Signer Exiting')
-      this.signerReconnect()
-    })
-
     // Express Application
     this.app = express()
 
