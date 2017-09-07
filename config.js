@@ -16,10 +16,22 @@
 
 const config = {
   port: process.env['WEBHOOK_MANAGER_PORT'],
-  recoveryShare: process.env['RECOVERY_SHARE'],
-  signerIpcPath: process.env['SIGNER_IPC_PATH'],
-  logDBPath: process.env['LOG_DB_PATH'],
-  recover: process.env['RECOVER_KEYSTORE']
+  recoveryShare:     process.env['RECOVERY_SHARE'],
+  signerIpcPath:     process.env['SIGNER_IPC_PATH'],
+  logDBPath:         process.env['LOG_DB_PATH'],
+  recover:           process.env['RECOVER_KEYSTORE'],
+  mysqlHost:         process.env['MYSQL_HOST'],
+  mysqlUser:         process.env['MYSQL_USER'],
+  mysqlRootPassword: process.env['MYSQL_ROOT_PASSWORD'],
+  mysqlDatabase:     process.env['MYSQL_DATABASE'],
+  deployParams: {
+    contributor:     process.env['GITTOKEN_CONTRIBUTOR'],
+    name:            process.env['GITTOKEN_NAME'],
+    username:        process.env['GITTOKEN_USERNAME'],
+    organization:    process.env['GITTOKEN_ORGANIZATION'],
+    symbol:          process.env['GITTOKEN_SYMBOL'],
+    decimals:       +process.env['GITTOKEN_DECIMALS']
+  }
 }
 
 module.exports = config

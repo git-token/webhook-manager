@@ -68,6 +68,22 @@ var _handleWebHookEvent = require('./handleWebHookEvent');
 
 var _handleWebHookEvent2 = _interopRequireDefault(_handleWebHookEvent);
 
+var _rewardContributor = require('./rewardContributor');
+
+var _rewardContributor2 = _interopRequireDefault(_rewardContributor);
+
+var _calculateRewardBonus = require('./calculateRewardBonus');
+
+var _calculateRewardBonus2 = _interopRequireDefault(_calculateRewardBonus);
+
+var _processEvent = require('./processEvent');
+
+var _processEvent2 = _interopRequireDefault(_processEvent);
+
+var _deploy = require('./deploy');
+
+var _deploy2 = _interopRequireDefault(_deploy);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var GitTokenWebHookManager = function (_GitTokenSignerClient) {
@@ -77,18 +93,26 @@ var GitTokenWebHookManager = function (_GitTokenSignerClient) {
     var port = _ref.port,
         signerIpcPath = _ref.signerIpcPath,
         logDBPath = _ref.logDBPath,
-        recoveryShare = _ref.recoveryShare;
+        recoveryShare = _ref.recoveryShare,
+        deployParams = _ref.deployParams;
     (0, _classCallCheck3.default)(this, GitTokenWebHookManager);
 
-    // Web Hook Mgr. Bound methods
-    var _this = (0, _possibleConstructorReturn3.default)(this, (GitTokenWebHookManager.__proto__ || (0, _getPrototypeOf2.default)(GitTokenWebHookManager)).call(this, { signerIpcPath: signerIpcPath }));
+    // Methods
+    var _this
+
+    // Variables
+    = (0, _possibleConstructorReturn3.default)(this, (GitTokenWebHookManager.__proto__ || (0, _getPrototypeOf2.default)(GitTokenWebHookManager)).call(this, { signerIpcPath: signerIpcPath }));
 
     _this.signLog = _signLog2.default.bind(_this);
     _this.verifyLog = _verifyLog2.default.bind(_this);
     _this.logWebHookEvent = _logWebHookEvent2.default.bind(_this);
     _this.handleWebHookEvent = _handleWebHookEvent2.default.bind(_this);
-    _this.signerIpcPath = signerIpcPath;
+    _this.rewardContributor = _rewardContributor2.default.bind(_this);
+    _this.calculateRewardBonus = _calculateRewardBonus2.default.bind(_this);
+    _this.processEvent = _processEvent2.default.bind(_this);
+    _this.deploy = _deploy2.default.bind(_this);_this.signerIpcPath = signerIpcPath;
     _this.recoveryShare = recoveryShare;
+    _this.deployParams = deployParams;
 
     // Hyperlog DAG Store
     _this.level = (0, _level2.default)(logDBPath);

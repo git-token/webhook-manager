@@ -12,18 +12,30 @@ import signLog from './signLog'
 import verifyLog from './verifyLog'
 import logWebHookEvent from './logWebHookEvent'
 import handleWebHookEvent from './handleWebHookEvent'
+import rewardContributor from './rewardContributor'
+import calculateRewardBonus from './calculateRewardBonus'
+import processEvent from './processEvent'
+import deploy from './deploy'
 
 export default class GitTokenWebHookManager extends GitTokenSignerClient {
-  constructor({ port, signerIpcPath, logDBPath, recoveryShare }) {
+  constructor({ port, signerIpcPath, logDBPath, recoveryShare, deployParams }) {
     super({ signerIpcPath })
 
-    // Web Hook Mgr. Bound methods
-    this.signLog            = signLog.bind(this)
-    this.verifyLog          = verifyLog.bind(this)
-    this.logWebHookEvent    = logWebHookEvent.bind(this)
-    this.handleWebHookEvent = handleWebHookEvent.bind(this)
-    this.signerIpcPath      = signerIpcPath
-    this.recoveryShare      = recoveryShare
+    // Methods
+    this.signLog              = signLog.bind(this)
+    this.verifyLog            = verifyLog.bind(this)
+    this.logWebHookEvent      = logWebHookEvent.bind(this)
+    this.handleWebHookEvent   = handleWebHookEvent.bind(this)
+    this.rewardContributor    = rewardContributor.bind(this)
+    this.calculateRewardBonus = calculateRewardBonus.bind(this)
+    this.processEvent         = processEvent.bind(this)
+    this.deploy               = deploy.bind(this)
+
+    // Variables
+    this.signerIpcPath        = signerIpcPath
+    this.recoveryShare        = recoveryShare
+    this.deployParams         = deployParams
+
 
     // Hyperlog DAG Store
     this.level = level(logDBPath)

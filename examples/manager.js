@@ -5,12 +5,14 @@ const {
   port,
   logDBPath,
   signerIpcPath,
-  recoveryShare
+  recoveryShare,
+  deployParams
 } = require('../config')
 
 const manager = new GitTokenWebHookManager({
   port,
   logDBPath,
   signerIpcPath,
-  recoveryShare
+  recoveryShare,
+  deployParams
 })

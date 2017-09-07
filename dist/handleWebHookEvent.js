@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -10,8 +10,10 @@ function handleWebHookEvent(req, res) {
   var headers = req.headers,
       body = req.body;
 
-
+  console.log('headers, body', headers, body);
   this.logWebHookEvent({ headers: headers, body: body }).then(function (node) {
+    return _this.processEvent({ headers: headers, body: body });
+  }).then(function () {
     return _this.rewardContributor({ headers: headers, body: body });
   }).then(function (txReceipt) {
     res.status(200).send(txReceipt);

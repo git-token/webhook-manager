@@ -1,6 +1,9 @@
 import { sha3 } from 'ethereumjs-util'
 
 export default function signLog(node, cb) {
+  // Set the identity of the logger to the signer address if it is null
+  if (!this.log.identity) { this.log.identity = this.signerAddress }
+
   this.signer.write(JSON.stringify({
     event: 'sign_message',
     data: {

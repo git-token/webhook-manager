@@ -8,6 +8,10 @@ var _stringify = require('babel-runtime/core-js/json/stringify');
 
 var _stringify2 = _interopRequireDefault(_stringify);
 
+var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
+
+var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
+
 exports.default = logWebHookEvent;
 
 var _bluebird = require('bluebird');
@@ -23,11 +27,24 @@ function logWebHookEvent(_ref) {
       body = _ref.body;
 
   return new _bluebird2.default(function (resolve, reject) {
-    _this.log.add(null, (0, _stringify2.default)({ headers: headers, body: body }), function (error, node) {
+    _this.log.heads(function (error, heads) {
       if (error) {
         reject(error);
       }
-      resolve(node);
+
+      var links = [];
+      var latest = heads[heads.length - 1];
+
+      if (heads.length) {
+        links = latest.links.concat(latest.key);
+      }
+
+      _this.log.add([].concat((0, _toConsumableArray3.default)(links)), (0, _stringify2.default)({ headers: headers, body: body }), function (error, node) {
+        if (error) {
+          reject(error);
+        }
+        resolve(node);
+      });
     });
   });
 }

@@ -1,6 +1,8 @@
 version: '3.0'
 volumes:
-  gittoken-volume:
+  signer-volume:
+  ipc-volume:
+  log-volume:
 services:
   signer:
     env_file:
@@ -9,7 +11,8 @@ services:
       context: ./node_modules/gittoken-signer/.
     ipc: host
     volumes:
-      - gittoken-volume:/tmp/
+      - signer-volume:/keystore/
+      - ipc-volume:/tmp/
   webhookmgr:
     ports:
       - 3000:3000
@@ -21,4 +24,5 @@ services:
       - signer
     ipc: signer
     volumes:
-      - gittoken-volume:/tmp/
+      - log-volume:/db
+      - ipc-volume:/tmp/
