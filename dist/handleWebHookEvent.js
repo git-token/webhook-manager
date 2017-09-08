@@ -18,6 +18,6 @@ function handleWebHookEvent(req, res) {
   }).then(function (txReceipt) {
     res.status(200).send(txReceipt);
   }).catch(function (error) {
-    res.status(500).send(error.message);
+    res.status(500).send(error);
   });
 }

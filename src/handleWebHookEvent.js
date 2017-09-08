@@ -8,6 +8,6 @@ export default function handleWebHookEvent(req, res) {
   }).then((txReceipt) => {
     res.status(200).send(txReceipt);
   }).catch((error) => {
-    res.status(500).send(error.message);
+    res.status(500).send(error);
   })
 }

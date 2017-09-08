@@ -20,8 +20,11 @@ function deploy() {
   var _this = this;
 
   return new _bluebird2.default(function (resolve, reject) {
-    console.log('deploy contract');
+
+    var msgID = 'deploy_contract_' + new Date().getTime();
+
     _this.signer.write((0, _stringify2.default)({
+      id: msgID,
       event: 'deploy_contract',
       data: {
         params: [_this.deployParams.contributor, _this.deployParams.name, _this.deployParams.username, _this.deployParams.organization, _this.deployParams.symbol, _this.deployParams.decimals],
@@ -30,13 +33,16 @@ function deploy() {
     }));
 
     _this.signer.on('data', function (msg) {
+      console.log('deploy::msg', msg);
+
       var _JSON$parse = JSON.parse(msg),
           event = _JSON$parse.event,
-          result = _JSON$parse.result;
+          result = _JSON$parse.result,
+          id = _JSON$parse.id;
 
-      if (event == 'deploy_contract') {
+      if (event == 'deploy_contract' && msgID == id) {
         resolve(result);
-      } else if (event == 'error') {
+      } else if (event == 'error' && msgID == id) {
         reject(result);
       }
     });

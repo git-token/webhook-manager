@@ -68,6 +68,10 @@ var _handleWebHookEvent = require('./handleWebHookEvent');
 
 var _handleWebHookEvent2 = _interopRequireDefault(_handleWebHookEvent);
 
+var _getLoggedEvents = require('./getLoggedEvents');
+
+var _getLoggedEvents2 = _interopRequireDefault(_getLoggedEvents);
+
 var _rewardContributor = require('./rewardContributor');
 
 var _rewardContributor2 = _interopRequireDefault(_rewardContributor);
@@ -107,6 +111,7 @@ var GitTokenWebHookManager = function (_GitTokenSignerClient) {
     _this.verifyLog = _verifyLog2.default.bind(_this);
     _this.logWebHookEvent = _logWebHookEvent2.default.bind(_this);
     _this.handleWebHookEvent = _handleWebHookEvent2.default.bind(_this);
+    _this.getLoggedEvents = _getLoggedEvents2.default.bind(_this);
     _this.rewardContributor = _rewardContributor2.default.bind(_this);
     _this.calculateRewardBonus = _calculateRewardBonus2.default.bind(_this);
     _this.processEvent = _processEvent2.default.bind(_this);
@@ -131,6 +136,7 @@ var GitTokenWebHookManager = function (_GitTokenSignerClient) {
     _this.app.use(_bodyParser2.default.json() // handle json data
     );_this.app.use(_bodyParser2.default.urlencoded({ extended: true }) // handle URL-encoded data
     );_this.app.post('/', _this.handleWebHookEvent);
+    _this.app.get('/', _this.getLoggedEvents);
 
     _this.app.listen(port, function () {
       console.log(_chalk2.default.hex('#210b49').bgHex('#cc5333')('GitToken Web Hook Manager Listening for Events on Port ' + port));

@@ -2,6 +2,8 @@ import Promise from 'bluebird'
 
 export default function rewardContributor ({ headers, body }) {
   return new Promise((resolve, reject) => {
+    const msgID = `reward_contributor_${new Date().getTime()}`
+
     const rewardType = headers['x-github-event']
     const reservedType = body['action'] ? body['action'] : ''
 
@@ -15,6 +17,7 @@ export default function rewardContributor ({ headers, body }) {
 
 
       this.signer.write(JSON.stringify({
+        id: msgID,
         event: 'sign_contract_transaction',
         data: {
           recoveryShare: this.recoveryShare,
@@ -25,11 +28,11 @@ export default function rewardContributor ({ headers, body }) {
 
       this.signer.on('data', (msg) => {
         console.log('JSON.parse(msg)', JSON.parse(msg))
-        const { event, result } = JSON.parse(msg)
-        if (event == 'sign_contract_transaction') {
+        const { event, result, id } = JSON.parse(msg)
+        if (event == 'sign_contract_transaction' && id == msgID) {
           console.log('result', result)
           resolve(result)
-        } else if (event == 'error') {
+        } else if (event == 'error' && id == msgID) {
           reject(result)
         }
       })

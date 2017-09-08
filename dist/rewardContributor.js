@@ -23,6 +23,8 @@ function rewardContributor(_ref) {
       body = _ref.body;
 
   return new _bluebird2.default(function (resolve, reject) {
+    var msgID = 'reward_contributor_' + new Date().getTime();
+
     var rewardType = headers['x-github-event'];
     var reservedType = body['action'] ? body['action'] : '';
 
@@ -34,6 +36,7 @@ function rewardContributor(_ref) {
       var params = [username, rewardType, reservedType, rewardBonus, deliveryID];
 
       _this.signer.write((0, _stringify2.default)({
+        id: msgID,
         event: 'sign_contract_transaction',
         data: {
           recoveryShare: _this.recoveryShare,
@@ -47,12 +50,13 @@ function rewardContributor(_ref) {
 
         var _JSON$parse = JSON.parse(msg),
             event = _JSON$parse.event,
-            result = _JSON$parse.result;
+            result = _JSON$parse.result,
+            id = _JSON$parse.id;
 
-        if (event == 'sign_contract_transaction') {
+        if (event == 'sign_contract_transaction' && id == msgID) {
           console.log('result', result);
           resolve(result);
-        } else if (event == 'error') {
+        } else if (event == 'error' && id == msgID) {
           reject(result);
         }
       });

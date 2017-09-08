@@ -2,8 +2,11 @@ import Promise from 'bluebird'
 
 export default function deploy() {
   return new Promise((resolve, reject) => {
-    console.log('deploy contract')
+
+    const msgID = `deploy_contract_${new Date().getTime()}`
+
     this.signer.write(JSON.stringify({
+      id: msgID,
       event: 'deploy_contract',
       data: {
         params: [
@@ -19,10 +22,11 @@ export default function deploy() {
     }))
 
     this.signer.on('data', (msg) => {
-      const { event, result } = JSON.parse(msg)
-      if (event == 'deploy_contract') {
+      console.log('deploy::msg', msg)
+      const { event, result, id } = JSON.parse(msg)
+      if (event == 'deploy_contract' && msgID == id) {
         resolve(result)
-      } else if (event == 'error') {
+      } else if (event == 'error' && msgID == id) {
         reject(result)
       }
     })
