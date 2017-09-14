@@ -6,7 +6,10 @@ const {
   logDBPath,
   signerIpcPath,
   recoveryShare,
-  deployParams
+  mysqlHost,
+  mysqlUser,
+  mysqlRootPassword,
+  mysqlDatabase
 } = require('../config')
 
 const manager = new GitTokenWebHookManager({
@@ -14,5 +17,8 @@ const manager = new GitTokenWebHookManager({
   logDBPath,
   signerIpcPath,
   recoveryShare,
-  deployParams
+  mysqlHost,
+  mysqlUser,
+  mysqlRootPassword,
+  mysqlDatabase
 })

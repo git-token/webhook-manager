@@ -1,6 +1,6 @@
 import Promise from 'bluebird'
 
-export default function deploy() {
+export default function deploy({ tokenDetails }) {
   return new Promise((resolve, reject) => {
 
     const msgID = `deploy_contract_${new Date().getTime()}`
@@ -10,13 +10,14 @@ export default function deploy() {
       event: 'deploy_contract',
       data: {
         params: [
-          this.deployParams.contributor,
-          this.deployParams.name,
-          this.deployParams.username,
-          this.deployParams.organization,
-          this.deployParams.symbol,
-          this.deployParams.decimals
+          tokenDetails['admin_address'],
+          tokenDetails['name'],
+          tokenDetails['admin_username'],
+          tokenDetails['organization'],
+          tokenDetails['symbol'],
+          tokenDetails['decimals']
         ],
+        organization: tokenDetails['organization'],
         recoveryShare: this.recoveryShare
       }
     }))

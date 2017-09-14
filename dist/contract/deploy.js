@@ -16,8 +16,10 @@ var _bluebird2 = _interopRequireDefault(_bluebird);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function deploy() {
+function deploy(_ref) {
   var _this = this;
+
+  var tokenDetails = _ref.tokenDetails;
 
   return new _bluebird2.default(function (resolve, reject) {
 
@@ -27,7 +29,8 @@ function deploy() {
       id: msgID,
       event: 'deploy_contract',
       data: {
-        params: [_this.deployParams.contributor, _this.deployParams.name, _this.deployParams.username, _this.deployParams.organization, _this.deployParams.symbol, _this.deployParams.decimals],
+        params: [tokenDetails['admin_address'], tokenDetails['name'], tokenDetails['admin_username'], tokenDetails['organization'], tokenDetails['symbol'], tokenDetails['decimals']],
+        organization: tokenDetails['organization'],
         recoveryShare: _this.recoveryShare
       }
     }));

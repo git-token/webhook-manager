@@ -11,19 +11,26 @@ var _bluebird2 = _interopRequireDefault(_bluebird);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/**
+ * [processEvent description]
+ * @param  {Object} eventDetails [description]
+ * @param  {Object} tokenDetails [description]
+ * @return [type]                [description]
+ */
 function processEvent(_ref) {
   var _this = this;
 
-  var headers = _ref.headers,
-      body = _ref.body;
+  var eventDetails = _ref.eventDetails,
+      tokenDetails = _ref.tokenDetails;
 
   return new _bluebird2.default(function (resolve, reject) {
-    _bluebird2.default.resolve(headers['x-github-event']).then(function (event) {
-      console.log('event', event
-      // Send Event to Processor
-      );switch (event) {
+    _bluebird2.default.resolve().then(function () {
+      switch (eventDetails['event']) {
         case 'ping':
-          return _this.deploy();
+          return _this.pingEvent({
+            eventDetails: eventDetails,
+            tokenDetails: tokenDetails
+          });
           break;
         default:
           return null;

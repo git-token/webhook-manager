@@ -1,6 +1,6 @@
 {
   "name": "gittoken-webhook-manager",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "GitToken Manager for GitHub Web Hook Events",
   "main": "./dist/index",
   "scripts": {
@@ -30,6 +30,8 @@
     "gittoken-signer": "0.0.18",
     "hyperlog": "^4.12.1",
     "level": "^1.7.0",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.1",
     "web3": "^0.20.0"
   },
   "devDependencies": {

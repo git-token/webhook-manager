@@ -23,15 +23,7 @@ const config = {
   mysqlHost:         process.env['MYSQL_HOST'],
   mysqlUser:         process.env['MYSQL_USER'],
   mysqlRootPassword: process.env['MYSQL_ROOT_PASSWORD'],
-  mysqlDatabase:     process.env['MYSQL_DATABASE'],
-  deployParams: {
-    contributor:     process.env['GITTOKEN_CONTRIBUTOR'],
-    name:            process.env['GITTOKEN_NAME'],
-    username:        process.env['GITTOKEN_USERNAME'],
-    organization:    process.env['GITTOKEN_ORGANIZATION'],
-    symbol:          process.env['GITTOKEN_SYMBOL'],
-    decimals:       +process.env['GITTOKEN_DECIMALS']
-  }
+  mysqlDatabase:     process.env['MYSQL_DATABASE']
 }
 
 module.exports = config

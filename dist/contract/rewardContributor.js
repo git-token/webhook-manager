@@ -19,27 +19,20 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function rewardContributor(_ref) {
   var _this = this;
 
-  var headers = _ref.headers,
-      body = _ref.body;
+  var eventDetails = _ref.eventDetails;
 
   return new _bluebird2.default(function (resolve, reject) {
     var msgID = 'reward_contributor_' + new Date().getTime();
 
-    var rewardType = headers['x-github-event'];
-    var reservedType = body['action'] ? body['action'] : '';
-
-    // NOTE: Consider using logged node.key for deliveryID
-    var deliveryID = headers['x-github-delivery'];
-    var username = body['sender']['login'];
-
-    _this.calculateRewardBonus({}).then(function (rewardBonus) {
-      var params = [username, rewardType, reservedType, rewardBonus, deliveryID];
+    _this.calculateRewardBonus({ eventDetails: eventDetails }).then(function (rewardBonus) {
+      var params = [eventDetails['contributor'], eventDetails['event'], eventDetails['action'], rewardBonus, eventDetails['delivery_id']];
 
       _this.signer.write((0, _stringify2.default)({
         id: msgID,
         event: 'sign_contract_transaction',
         data: {
           recoveryShare: _this.recoveryShare,
+          organization: eventDetails['organization'],
           method: 'rewardContributor',
           params: params
         }

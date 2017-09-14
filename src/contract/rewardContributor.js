@@ -1,26 +1,24 @@
 import Promise from 'bluebird'
 
-export default function rewardContributor ({ headers, body }) {
+export default function rewardContributor ({ eventDetails }) {
   return new Promise((resolve, reject) => {
     const msgID = `reward_contributor_${new Date().getTime()}`
 
-    const rewardType = headers['x-github-event']
-    const reservedType = body['action'] ? body['action'] : ''
-
-    // NOTE: Consider using logged node.key for deliveryID
-    const deliveryID = headers['x-github-delivery']
-    const username = body['sender']['login']
-
-    this.calculateRewardBonus({}).then((rewardBonus) => {
-      const params = [ username, rewardType, reservedType, rewardBonus, deliveryID ]
-
-
+    this.calculateRewardBonus({ eventDetails }).then((rewardBonus) => {
+      const params = [
+        eventDetails['contributor'],
+        eventDetails['event'],
+        eventDetails['action'],
+        rewardBonus,
+        eventDetails['delivery_id']
+      ]
 
       this.signer.write(JSON.stringify({
         id: msgID,
         event: 'sign_contract_transaction',
         data: {
           recoveryShare: this.recoveryShare,
+          organization: eventDetails['organization'],
           method: 'rewardContributor',
           params
         }
