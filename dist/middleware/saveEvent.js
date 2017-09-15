@@ -9,6 +9,9 @@ function saveEvent(req, res, next) {
       body = req.body;
 
 
+  console.log('headers', headers);
+  console.log('body', body);
+
   req.eventDetails = {
     delivery_id: headers['x-github-delivery'],
     event: headers['x-github-event'],
