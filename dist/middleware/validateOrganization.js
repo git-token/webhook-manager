@@ -6,9 +6,13 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = validateOrganization;
 function validateOrganization(req, res, next) {
   var organization = req.params.organization;
+  var payload = req.body.payload;
+
 
   if (!organization) {
-    res.status(401).send('\n\n      Error! The organized provided is null.\n\n      Please set webhook url to https://webhook.gittoken.io/<organization>\n\n    ');
+    res.status(401).send('\n\n      Error! The organization provided is null.\n\n      Please set webhook url to https://webhook.gittoken.io/' + JSON.parse(payload).organization + '\n\n    ');
+  }if (organization != JSON.parse(payload).organization) {
+    res.status(401).send('\n\n      Error! The organization provided does not match the webhook organization login.\n\n    ');
   } else {
     this.selectFromRegistry({
       key: 'organization',
