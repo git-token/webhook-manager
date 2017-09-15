@@ -6,18 +6,17 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = saveEvent;
 function saveEvent(req, res, next) {
   var headers = req.headers,
-      body = req.body;
+      payload = req.body.payload;
 
 
-  console.log('headers', headers);
-  console.log('body', body);
+  var data = JSON.parse(payload);
 
   req.eventDetails = {
     delivery_id: headers['x-github-delivery'],
     event: headers['x-github-event'],
-    action: body['action'] ? body['action'] : '',
-    organization: body['organization']['login'],
-    contributor: body['sender']['login'],
+    action: data['action'] ? data['action'] : '',
+    organization: data['organization']['login'],
+    contributor: data['sender']['login'],
     date_received: new Date().getTime()
   };
 
