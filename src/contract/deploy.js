@@ -1,5 +1,10 @@
 import Promise from 'bluebird'
 
+/**
+ * [deploy description]
+ * @param  {[type]} tokenDetails [description]
+ * @return [type]                [description]
+ */
 export default function deploy({ tokenDetails }) {
   return new Promise((resolve, reject) => {
 
@@ -23,7 +28,6 @@ export default function deploy({ tokenDetails }) {
     }))
 
     this.signer.on('data', (msg) => {
-      console.log('deploy::msg', msg)
       const { event, result, id } = JSON.parse(msg)
       if (event == 'deploy_contract' && msgID == id) {
         resolve(result)

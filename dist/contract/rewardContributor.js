@@ -16,6 +16,11 @@ var _bluebird2 = _interopRequireDefault(_bluebird);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/**
+ * [rewardContributor description]
+ * @param  {[type]} eventDetails [description]
+ * @return [type]                [description]
+ */
 function rewardContributor(_ref) {
   var _this = this;
 
@@ -39,15 +44,12 @@ function rewardContributor(_ref) {
       }));
 
       _this.signer.on('data', function (msg) {
-        console.log('JSON.parse(msg)', JSON.parse(msg));
-
         var _JSON$parse = JSON.parse(msg),
             event = _JSON$parse.event,
             result = _JSON$parse.result,
             id = _JSON$parse.id;
 
         if (event == 'sign_contract_transaction' && id == msgID) {
-          console.log('result', result);
           resolve(result);
         } else if (event == 'error' && id == msgID) {
           reject(result);

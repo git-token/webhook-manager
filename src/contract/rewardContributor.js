@@ -1,5 +1,10 @@
 import Promise from 'bluebird'
 
+/**
+ * [rewardContributor description]
+ * @param  {[type]} eventDetails [description]
+ * @return [type]                [description]
+ */
 export default function rewardContributor ({ eventDetails }) {
   return new Promise((resolve, reject) => {
     const msgID = `reward_contributor_${new Date().getTime()}`
@@ -25,10 +30,8 @@ export default function rewardContributor ({ eventDetails }) {
       }))
 
       this.signer.on('data', (msg) => {
-        console.log('JSON.parse(msg)', JSON.parse(msg))
         const { event, result, id } = JSON.parse(msg)
         if (event == 'sign_contract_transaction' && id == msgID) {
-          console.log('result', result)
           resolve(result)
         } else if (event == 'error' && id == msgID) {
           reject(result)

@@ -16,6 +16,11 @@ var _bluebird2 = _interopRequireDefault(_bluebird);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+/**
+ * [deploy description]
+ * @param  {[type]} tokenDetails [description]
+ * @return [type]                [description]
+ */
 function deploy(_ref) {
   var _this = this;
 
@@ -36,8 +41,6 @@ function deploy(_ref) {
     }));
 
     _this.signer.on('data', function (msg) {
-      console.log('deploy::msg', msg);
-
       var _JSON$parse = JSON.parse(msg),
           event = _JSON$parse.event,
           result = _JSON$parse.result,

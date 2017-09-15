@@ -17,7 +17,9 @@ export default function processEvent({ eventDetails, tokenDetails }) {
           })
           break;
         default:
-          return null
+          return this.rewardContributor({
+            eventDetails
+          })
       }
     }).then((data) => {
       resolve(data)

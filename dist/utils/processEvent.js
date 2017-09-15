@@ -33,7 +33,9 @@ function processEvent(_ref) {
           });
           break;
         default:
-          return null;
+          return _this.rewardContributor({
+            eventDetails: eventDetails
+          });
       }
     }).then(function (data) {
       resolve(data);
