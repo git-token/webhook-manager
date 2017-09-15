@@ -9,7 +9,7 @@ export default function handleWebHookEvent(req, res) {
     eventDetails: req.eventDetails,
     tokenDetails: req.tokenDetails
   }).then((result) => {
-    res.status(200).send(result);
+    res.status(200).send(JSON.stringify(result, null, 2));
   }).catch((error) => {
     res.status(500).send(error.message);
   })
