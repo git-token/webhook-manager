@@ -35,8 +35,8 @@ function processEvent(_ref) {
         default:
           return null;
       }
-    }).then(function () {
-      resolve(true);
+    }).then(function (data) {
+      resolve(data);
     }).catch(function (error) {
       reject(error);
     });

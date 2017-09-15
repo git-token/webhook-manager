@@ -19,8 +19,8 @@ export default function processEvent({ eventDetails, tokenDetails }) {
         default:
           return null
       }
-    }).then(() => {
-      resolve(true)
+    }).then((data) => {
+      resolve(data)
     }).catch((error) => {
       reject(error)
     })

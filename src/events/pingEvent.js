@@ -11,12 +11,15 @@ export default function pingEvent({
   tokenDetails
 }) {
   return new Promise((resolve, reject) => {
+
+    let receipts = []
+
     this.deploy({ tokenDetails }).then((txReceipt) => {
-      console.log('txReceipt', txReceipt)
+      receipts.push(txReceipt)
       return this.rewardContributor({ eventDetails })
     }).then((txReceipt) => {
-      console.log('txReceipt', txReceipt)
-      resolve()
+      receipts.push(txReceipt)
+      resolve(receipts)
     }).catch((error) => {
       reject(error)
     })
