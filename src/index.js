@@ -31,6 +31,10 @@ import {
 } from './controllers/index'
 
 import {
+  pingEvent
+} from './events/index'
+
+import {
   deploy,
   rewardContributor
 } from './contract/index'
@@ -65,7 +69,7 @@ export default class GitTokenWebHookManager extends GitTokenSignerClient {
     this.rewardContributor    = rewardContributor.bind(this)
     this.calculateRewardBonus = calculateRewardBonus.bind(this)
     this.deploy               = deploy.bind(this)
-
+    this.pingEvent            = pingEvent.bind(this)
 
 
     // Variables

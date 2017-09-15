@@ -64,11 +64,13 @@ var _index3 = require('./middleware/index');
 
 var _index4 = require('./controllers/index');
 
-var _index5 = require('./contract/index');
+var _index5 = require('./events/index');
 
-var _index6 = require('./router/index');
+var _index6 = require('./contract/index');
 
-var _index7 = _interopRequireDefault(_index6);
+var _index7 = require('./router/index');
+
+var _index8 = _interopRequireDefault(_index7);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -96,11 +98,12 @@ var GitTokenWebHookManager = function (_GitTokenSignerClient) {
     _this.insertIntoWebhook = _index2.insertIntoWebhook.bind(_this);
     _this.saveEvent = _index3.saveEvent.bind(_this);
     _this.validateOrganization = _index3.validateOrganization.bind(_this);
-    _this.webhookRouter = _index7.default.bind(_this);
+    _this.webhookRouter = _index8.default.bind(_this);
     _this.handleWebHookEvent = _index4.handleWebHookEvent.bind(_this);
-    _this.rewardContributor = _index5.rewardContributor.bind(_this);
+    _this.rewardContributor = _index6.rewardContributor.bind(_this);
     _this.calculateRewardBonus = _index.calculateRewardBonus.bind(_this);
-    _this.deploy = _index5.deploy.bind(_this);
+    _this.deploy = _index6.deploy.bind(_this);
+    _this.pingEvent = _index5.pingEvent.bind(_this);
 
     // Variables
     _this.signerIpcPath = signerIpcPath;
