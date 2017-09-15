@@ -9,9 +9,12 @@ function validateOrganization(req, res, next) {
   var payload = req.body.payload;
 
 
+  console.log('req.body', req.body);
+  console.log('payload', payload);
+
   if (!organization) {
     res.status(401).send('\n\n      Error! The organization provided is null.\n\n      Please set webhook url to https://webhook.gittoken.io/' + JSON.parse(payload).organization + '\n\n    ');
-  }if (organization != JSON.parse(payload).organization) {
+  }if (organization != payload.organization) {
     res.status(401).send('\n\n      Error! The organization provided does not match the webhook organization login.\n\n    ');
   } else {
     this.selectFromRegistry({
