@@ -11,23 +11,6 @@ export default function handleWebHookEvent(req, res) {
   }).then((result) => {
     res.status(200).send(true);
   }).catch((error) => {
-    res.status(500).send(error);
+    res.status(500).send(error.message);
   })
-
-
-  res.status(200).send(req.tokenDetails)
-  // const { headers, body, params } = req
-  // const { organization } = params
-  //
-  //
-  //
-  // this.logWebHookEvent({ headers, body }).then((node) => {
-  //   return this.processEvent({ headers, body })
-  // }).then(() => {
-  //   return this.rewardContributor({ headers, body })
-  // }).then((txReceipt) => {
-  //   res.status(200).send(txReceipt);
-  // }).catch((error) => {
-  //   res.status(500).send(error);
-  // })
 }
