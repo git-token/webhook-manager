@@ -20,8 +20,6 @@ export default function saveEvent(req, res, next) {
     date_received: new Date().getTime(),
   }
 
-  console.log('req.eventDetails', req.eventDetails)
-
   this.insertIntoWebhook(req.eventDetails).then(() => {
     next()
   }).catch((error) => {
