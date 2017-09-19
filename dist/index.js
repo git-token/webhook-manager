@@ -52,25 +52,25 @@ var _mysql = require('mysql');
 
 var _mysql2 = _interopRequireDefault(_mysql);
 
-var _signerClient = require('gittoken-signer/dist/signerClient');
+var _index = require('gittoken-signer/dist/client/index');
 
-var _signerClient2 = _interopRequireDefault(_signerClient);
+var _index2 = _interopRequireDefault(_index);
 
-var _index = require('./utils/index');
+var _index3 = require('./utils/index');
 
-var _index2 = require('./sql/index');
+var _index4 = require('./sql/index');
 
-var _index3 = require('./middleware/index');
+var _index5 = require('./middleware/index');
 
-var _index4 = require('./controllers/index');
+var _index6 = require('./controllers/index');
 
-var _index5 = require('./events/index');
+var _index7 = require('./events/index');
 
-var _index6 = require('./contract/index');
+var _index8 = require('./contract/index');
 
-var _index7 = require('./router/index');
+var _index9 = require('./router/index');
 
-var _index8 = _interopRequireDefault(_index7);
+var _index10 = _interopRequireDefault(_index9);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -91,19 +91,19 @@ var GitTokenWebHookManager = function (_GitTokenSignerClient) {
     // // Methods
     var _this = (0, _possibleConstructorReturn3.default)(this, (GitTokenWebHookManager.__proto__ || (0, _getPrototypeOf2.default)(GitTokenWebHookManager)).call(this, { signerIpcPath: signerIpcPath }));
 
-    _this.signLog = _index.signLog.bind(_this);
-    _this.verifyLog = _index.verifyLog.bind(_this);
-    _this.processEvent = _index.processEvent.bind(_this);
-    _this.selectFromRegistry = _index2.selectFromRegistry.bind(_this);
-    _this.insertIntoWebhook = _index2.insertIntoWebhook.bind(_this);
-    _this.saveEvent = _index3.saveEvent.bind(_this);
-    _this.validateOrganization = _index3.validateOrganization.bind(_this);
-    _this.webhookRouter = _index8.default.bind(_this);
-    _this.handleWebHookEvent = _index4.handleWebHookEvent.bind(_this);
-    _this.rewardContributor = _index6.rewardContributor.bind(_this);
-    _this.calculateRewardBonus = _index.calculateRewardBonus.bind(_this);
-    _this.deploy = _index6.deploy.bind(_this);
-    _this.pingEvent = _index5.pingEvent.bind(_this);
+    _this.signLog = _index3.signLog.bind(_this);
+    _this.verifyLog = _index3.verifyLog.bind(_this);
+    _this.processEvent = _index3.processEvent.bind(_this);
+    _this.selectFromRegistry = _index4.selectFromRegistry.bind(_this);
+    _this.insertIntoWebhook = _index4.insertIntoWebhook.bind(_this);
+    _this.saveEvent = _index5.saveEvent.bind(_this);
+    _this.validateOrganization = _index5.validateOrganization.bind(_this);
+    _this.webhookRouter = _index10.default.bind(_this);
+    _this.handleWebHookEvent = _index6.handleWebHookEvent.bind(_this);
+    _this.rewardContributor = _index8.rewardContributor.bind(_this);
+    _this.calculateRewardBonus = _index3.calculateRewardBonus.bind(_this);
+    _this.deploy = _index8.deploy.bind(_this);
+    _this.pingEvent = _index7.pingEvent.bind(_this);
 
     // Variables
     _this.signerIpcPath = signerIpcPath;
@@ -144,6 +144,6 @@ var GitTokenWebHookManager = function (_GitTokenSignerClient) {
   }
 
   return GitTokenWebHookManager;
-}(_signerClient2.default);
+}(_index2.default);
 
 exports.default = GitTokenWebHookManager;

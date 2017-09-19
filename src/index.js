@@ -7,7 +7,7 @@ import hyperlog from 'hyperlog'
 import chalk from 'chalk'
 import mysql from 'mysql'
 
-import GitTokenSignerClient from 'gittoken-signer/dist/signerClient'
+import GitTokenSignerClient from 'gittoken-signer/dist/client/index'
 
 import {
   processEvent,
