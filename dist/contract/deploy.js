@@ -44,7 +44,7 @@ function deploy(_ref) {
     _this.signer.write((0, _stringify2.default)(payload));
 
     _this.signer.on('data', function (_msg) {
-      var msg = _msg.toJSON();
+      var msg = JSON.parse(_msg.toString('utf8'));
       console.log('deploy::msg', msg);
       var event = msg.event,
           result = msg.result,

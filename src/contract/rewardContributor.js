@@ -29,8 +29,9 @@ export default function rewardContributor ({ eventDetails }) {
         }
       }))
 
-      this.signer.on('data', (msg) => {
-        const { event, result, id } = JSON.parse(msg)
+      this.signer.on('data', (_msg) => {
+        const msg = JSON.parse(_msg.toString('utf8'))
+        const { event, result, id } = msg
         if (event == 'sign_contract_transaction' && id == msgID) {
           resolve(result)
         } else if (event == 'error' && id == msgID) {

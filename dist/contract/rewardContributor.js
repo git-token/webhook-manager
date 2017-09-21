@@ -43,11 +43,11 @@ function rewardContributor(_ref) {
         }
       }));
 
-      _this.signer.on('data', function (msg) {
-        var _JSON$parse = JSON.parse(msg),
-            event = _JSON$parse.event,
-            result = _JSON$parse.result,
-            id = _JSON$parse.id;
+      _this.signer.on('data', function (_msg) {
+        var msg = JSON.parse(_msg.toString('utf8'));
+        var event = msg.event,
+            result = msg.result,
+            id = msg.id;
 
         if (event == 'sign_contract_transaction' && id == msgID) {
           resolve(result);

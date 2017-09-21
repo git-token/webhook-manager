@@ -31,7 +31,7 @@ export default function deploy({ tokenDetails }) {
     this.signer.write(JSON.stringify(payload))
 
     this.signer.on('data', (_msg) => {
-      const msg = _msg.toJSON()
+      const msg = JSON.parse(_msg.toString('utf8'))
       console.log('deploy::msg', msg)
       const { event, result, id } = msg
       if (event == 'deploy_contract' && msgID == id) {
