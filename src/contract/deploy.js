@@ -10,7 +10,7 @@ export default function deploy({ tokenDetails }) {
 
     const msgID = `deploy_contract_${new Date().getTime()}`
 
-    this.signer.write(JSON.stringify({
+    const payload = {
       id: msgID,
       event: 'deploy_contract',
       data: {
@@ -25,10 +25,15 @@ export default function deploy({ tokenDetails }) {
         organization: tokenDetails['organization'],
         recoveryShare: this.recoveryShare
       }
-    }))
+    }
 
-    this.signer.on('data', (msg) => {
-      const { event, result, id } = JSON.parse(msg)
+    console.log('payload', payload)
+    this.signer.write(JSON.stringify(payload))
+
+    this.signer.on('data', (_msg) => {
+      const msg = _msg.toJSON()
+      console.log('deploy::msg', msg)
+      const { event, result, id } = msg
       if (event == 'deploy_contract' && msgID == id) {
         resolve(result)
       } else if (event == 'error' && msgID == id) {

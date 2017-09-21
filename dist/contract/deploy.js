@@ -30,7 +30,7 @@ function deploy(_ref) {
 
     var msgID = 'deploy_contract_' + new Date().getTime();
 
-    _this.signer.write((0, _stringify2.default)({
+    var payload = {
       id: msgID,
       event: 'deploy_contract',
       data: {
@@ -38,13 +38,17 @@ function deploy(_ref) {
         organization: tokenDetails['organization'],
         recoveryShare: _this.recoveryShare
       }
-    }));
+    };
 
-    _this.signer.on('data', function (msg) {
-      var _JSON$parse = JSON.parse(msg),
-          event = _JSON$parse.event,
-          result = _JSON$parse.result,
-          id = _JSON$parse.id;
+    console.log('payload', payload);
+    _this.signer.write((0, _stringify2.default)(payload));
+
+    _this.signer.on('data', function (_msg) {
+      var msg = _msg.toJSON();
+      console.log('deploy::msg', msg);
+      var event = msg.event,
+          result = msg.result,
+          id = msg.id;
 
       if (event == 'deploy_contract' && msgID == id) {
         resolve(result);
