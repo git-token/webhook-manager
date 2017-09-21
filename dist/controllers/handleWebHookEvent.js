@@ -25,6 +25,6 @@ function handleWebHookEvent(req, res) {
   }).then(function (result) {
     res.status(200).send((0, _stringify2.default)(result, null, 2));
   }).catch(function (error) {
-    res.status(500).send(error.message);
+    res.status(500).send((0, _stringify2.default)(error, null, 2));
   });
 }

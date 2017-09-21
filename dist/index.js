@@ -98,8 +98,9 @@ var GitTokenWebHookManager = function (_GitTokenSignerClient) {
     _this.insertIntoWebhook = _index4.insertIntoWebhook.bind(_this);
     _this.saveEvent = _index5.saveEvent.bind(_this);
     _this.validateOrganization = _index5.validateOrganization.bind(_this);
+    _this.processRequest = _index5.processRequest.bind(_this);
     _this.webhookRouter = _index10.default.bind(_this);
-    _this.handleWebHookEvent = _index6.handleWebHookEvent.bind(_this);
+    // Deprecated // this.handleWebHookEvent   = handleWebHookEvent.bind(this)
     _this.rewardContributor = _index8.rewardContributor.bind(_this);
     _this.calculateRewardBonus = _index3.calculateRewardBonus.bind(_this);
     _this.deploy = _index8.deploy.bind(_this);
@@ -109,7 +110,6 @@ var GitTokenWebHookManager = function (_GitTokenSignerClient) {
     _this.signerIpcPath = signerIpcPath;
     _this.recoveryShare = recoveryShare;
     // this.deployParams         = deployParams
-
 
     // Hyperlog DAG Store
     _this.level = (0, _level2.default)(logDBPath);

@@ -23,7 +23,8 @@ import {
 
 import {
   saveEvent,
-  validateOrganization
+  validateOrganization,
+  processRequest
 } from './middleware/index'
 
 import {
@@ -62,8 +63,9 @@ export default class GitTokenWebHookManager extends GitTokenSignerClient {
     this.insertIntoWebhook    = insertIntoWebhook.bind(this)
     this.saveEvent            = saveEvent.bind(this)
     this.validateOrganization = validateOrganization.bind(this)
+    this.processRequest       = processRequest.bind(this)
     this.webhookRouter        = webhookRouter.bind(this)
-    this.handleWebHookEvent   = handleWebHookEvent.bind(this)
+    // Deprecated // this.handleWebHookEvent   = handleWebHookEvent.bind(this)
     this.rewardContributor    = rewardContributor.bind(this)
     this.calculateRewardBonus = calculateRewardBonus.bind(this)
     this.deploy               = deploy.bind(this)

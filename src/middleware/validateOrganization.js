@@ -22,8 +22,8 @@ export default function validateOrganization(req, res, next) {
     this.selectFromRegistry({
       key: 'organization',
       value: organization
-    }).then((organizationTokenDetails) => {
-      req.tokenDetails = organizationTokenDetails
+    }).then((tokenDetails) => {
+      req.tokenDetails = tokenDetails
       next()
     }).catch((error) => {
       res.status(401).send(error.message)

@@ -19,8 +19,8 @@ function validateOrganization(req, res, next) {
     this.selectFromRegistry({
       key: 'organization',
       value: organization
-    }).then(function (organizationTokenDetails) {
-      req.tokenDetails = organizationTokenDetails;
+    }).then(function (tokenDetails) {
+      req.tokenDetails = tokenDetails;
       next();
     }).catch(function (error) {
       res.status(401).send(error.message);
