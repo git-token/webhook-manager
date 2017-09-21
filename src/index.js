@@ -41,8 +41,6 @@ import {
 
 import webhookRouter from './router/index'
 
-
-
 export default class GitTokenWebHookManager extends GitTokenSignerClient {
   constructor({
     port,
@@ -71,12 +69,10 @@ export default class GitTokenWebHookManager extends GitTokenSignerClient {
     this.deploy               = deploy.bind(this)
     this.pingEvent            = pingEvent.bind(this)
 
-
     // Variables
     this.signerIpcPath        = signerIpcPath
     this.recoveryShare        = recoveryShare
     // this.deployParams         = deployParams
-
 
     // Hyperlog DAG Store
     this.level = level(logDBPath)
