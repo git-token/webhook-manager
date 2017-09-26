@@ -19,6 +19,16 @@ export default function pingEvent({
       return this.rewardContributor({ eventDetails })
     }).then((txReceipt) => {
       receipts.push(txReceipt)
+
+      // Setup Event Listener for newly deployed token
+      this.watcher.eventListener.write({
+        type: 'WATCH_TOKEN',
+        data: {
+          organization: tokenDetails['organization'],
+          token: receipts[0]['contractAddress']
+        }
+      })
+
       resolve(receipts)
     }).catch((error) => {
       reject(error)

@@ -8,6 +8,7 @@ import chalk from 'chalk'
 import mysql from 'mysql'
 
 import GitTokenSignerClient from 'gittoken-signer/dist/client/index'
+import GitTokenEventWatcherClient from 'gittoken-event-listener/dist/client/index'
 
 import {
   processEvent,
@@ -51,7 +52,8 @@ export default class GitTokenWebHookManager extends GitTokenSignerClient {
     mysqlHost,
     mysqlUser,
     mysqlRootPassword,
-    mysqlDatabase
+    mysqlDatabase,
+    watcherIpcPath
   }) {
     super({ signerIpcPath })
 
@@ -86,6 +88,7 @@ export default class GitTokenWebHookManager extends GitTokenSignerClient {
       verify: this.verifyLog
     })
 
+    this.watcher = new GitTokenEventWatcherClient({ watcherIpcPath })
 
     this.mysql = mysql.createConnection({
       host: mysqlHost,

@@ -14,6 +14,10 @@ var _bluebird = require('bluebird');
 
 var _bluebird2 = _interopRequireDefault(_bluebird);
 
+var _split = require('split');
+
+var _split2 = _interopRequireDefault(_split);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
@@ -43,8 +47,7 @@ function rewardContributor(_ref) {
         }
       }));
 
-      _this.signer.on('data', function (_msg) {
-        var msg = JSON.parse(_msg.toString('utf8'));
+      _this.signer.pipe((0, _split2.default)(JSON.parse)).on('data', function (msg) {
         var event = msg.event,
             result = msg.result,
             id = msg.id;

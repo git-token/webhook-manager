@@ -1,4 +1,5 @@
 import Promise from 'bluebird'
+import split from 'split'
 
 /**
  * [deploy description]
@@ -27,12 +28,10 @@ export default function deploy({ tokenDetails }) {
       }
     }
 
-    console.log('payload', payload)
+    // console.log('payload', payload)
     this.signer.write(JSON.stringify(payload))
 
-    this.signer.on('data', (_msg) => {
-      const msg = JSON.parse(_msg.toString('utf8'))
-      console.log('deploy::msg', msg)
+    this.signer.pipe(split(JSON.parse)).on('data', (msg) => {
       const { event, result, id } = msg
       if (event == 'deploy_contract' && msgID == id) {
         resolve(result)

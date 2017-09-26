@@ -56,21 +56,25 @@ var _index = require('gittoken-signer/dist/client/index');
 
 var _index2 = _interopRequireDefault(_index);
 
-var _index3 = require('./utils/index');
+var _index3 = require('gittoken-event-listener/dist/client/index');
 
-var _index4 = require('./sql/index');
+var _index4 = _interopRequireDefault(_index3);
 
-var _index5 = require('./middleware/index');
+var _index5 = require('./utils/index');
 
-var _index6 = require('./controllers/index');
+var _index6 = require('./sql/index');
 
-var _index7 = require('./events/index');
+var _index7 = require('./middleware/index');
 
-var _index8 = require('./contract/index');
+var _index8 = require('./controllers/index');
 
-var _index9 = require('./router/index');
+var _index9 = require('./events/index');
 
-var _index10 = _interopRequireDefault(_index9);
+var _index10 = require('./contract/index');
+
+var _index11 = require('./router/index');
+
+var _index12 = _interopRequireDefault(_index11);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -85,26 +89,27 @@ var GitTokenWebHookManager = function (_GitTokenSignerClient) {
         mysqlHost = _ref.mysqlHost,
         mysqlUser = _ref.mysqlUser,
         mysqlRootPassword = _ref.mysqlRootPassword,
-        mysqlDatabase = _ref.mysqlDatabase;
+        mysqlDatabase = _ref.mysqlDatabase,
+        watcherIpcPath = _ref.watcherIpcPath;
     (0, _classCallCheck3.default)(this, GitTokenWebHookManager);
 
     // // Methods
     var _this = (0, _possibleConstructorReturn3.default)(this, (GitTokenWebHookManager.__proto__ || (0, _getPrototypeOf2.default)(GitTokenWebHookManager)).call(this, { signerIpcPath: signerIpcPath }));
 
-    _this.signLog = _index3.signLog.bind(_this);
-    _this.verifyLog = _index3.verifyLog.bind(_this);
-    _this.processEvent = _index3.processEvent.bind(_this);
-    _this.selectFromRegistry = _index4.selectFromRegistry.bind(_this);
-    _this.insertIntoWebhook = _index4.insertIntoWebhook.bind(_this);
-    _this.saveEvent = _index5.saveEvent.bind(_this);
-    _this.validateOrganization = _index5.validateOrganization.bind(_this);
-    _this.processRequest = _index5.processRequest.bind(_this);
-    _this.webhookRouter = _index10.default.bind(_this);
+    _this.signLog = _index5.signLog.bind(_this);
+    _this.verifyLog = _index5.verifyLog.bind(_this);
+    _this.processEvent = _index5.processEvent.bind(_this);
+    _this.selectFromRegistry = _index6.selectFromRegistry.bind(_this);
+    _this.insertIntoWebhook = _index6.insertIntoWebhook.bind(_this);
+    _this.saveEvent = _index7.saveEvent.bind(_this);
+    _this.validateOrganization = _index7.validateOrganization.bind(_this);
+    _this.processRequest = _index7.processRequest.bind(_this);
+    _this.webhookRouter = _index12.default.bind(_this);
     // Deprecated // this.handleWebHookEvent   = handleWebHookEvent.bind(this)
-    _this.rewardContributor = _index8.rewardContributor.bind(_this);
-    _this.calculateRewardBonus = _index3.calculateRewardBonus.bind(_this);
-    _this.deploy = _index8.deploy.bind(_this);
-    _this.pingEvent = _index7.pingEvent.bind(_this);
+    _this.rewardContributor = _index10.rewardContributor.bind(_this);
+    _this.calculateRewardBonus = _index5.calculateRewardBonus.bind(_this);
+    _this.deploy = _index10.deploy.bind(_this);
+    _this.pingEvent = _index9.pingEvent.bind(_this);
 
     // Variables
     _this.signerIpcPath = signerIpcPath;
@@ -120,6 +125,8 @@ var GitTokenWebHookManager = function (_GitTokenSignerClient) {
       sign: _this.signLog,
       verify: _this.verifyLog
     });
+
+    _this.watcher = new _index4.default({ watcherIpcPath: watcherIpcPath });
 
     _this.mysql = _mysql2.default.createConnection({
       host: mysqlHost,

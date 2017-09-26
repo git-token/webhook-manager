@@ -32,6 +32,16 @@ function pingEvent(_ref) {
       return _this.rewardContributor({ eventDetails: eventDetails });
     }).then(function (txReceipt) {
       receipts.push(txReceipt);
+
+      // Setup Event Listener for newly deployed token
+      _this.watcher.eventListener.write({
+        type: 'WATCH_TOKEN',
+        data: {
+          organization: tokenDetails['organization'],
+          token: receipts[0]['contractAddress']
+        }
+      });
+
       resolve(receipts);
     }).catch(function (error) {
       reject(error);

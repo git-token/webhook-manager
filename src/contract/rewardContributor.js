@@ -1,4 +1,5 @@
 import Promise from 'bluebird'
+import split from 'split'
 
 /**
  * [rewardContributor description]
@@ -29,8 +30,7 @@ export default function rewardContributor ({ eventDetails }) {
         }
       }))
 
-      this.signer.on('data', (_msg) => {
-        const msg = JSON.parse(_msg.toString('utf8'))
+      this.signer.pipe(split(JSON.parse)).on('data', (msg) => {
         const { event, result, id } = msg
         if (event == 'sign_contract_transaction' && id == msgID) {
           resolve(result)
