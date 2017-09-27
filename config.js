@@ -15,7 +15,7 @@
 
 
 const config = {
-  port: process.env['WEBHOOK_MANAGER_PORT'],
+  port:              process.env['WEBHOOK_MANAGER_PORT'],
   recoveryShare:     process.env['RECOVERY_SHARE'],
   signerIpcPath:     process.env['SIGNER_IPC_PATH'],
   watcherIpcPath:    process.env['WATCHER_IPC_PATH'],

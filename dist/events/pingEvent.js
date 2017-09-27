@@ -33,14 +33,15 @@ function pingEvent(_ref) {
     }).then(function (txReceipt) {
       receipts.push(txReceipt);
 
+      var data = {
+        organization: tokenDetails['organization'],
+        token: receipts[0]['contractAddress']
+      };
+
+      console.log('Sending Data ' + data + ' to Event Listener');
+
       // Setup Event Listener for newly deployed token
-      _this.watcher.eventListener.write({
-        type: 'WATCH_TOKEN',
-        data: {
-          organization: tokenDetails['organization'],
-          token: receipts[0]['contractAddress']
-        }
-      });
+      _this.watcher.eventListener.write({ type: 'WATCH_TOKEN', data: data });
 
       resolve(receipts);
     }).catch(function (error) {

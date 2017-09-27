@@ -20,14 +20,15 @@ export default function pingEvent({
     }).then((txReceipt) => {
       receipts.push(txReceipt)
 
+      const data = {
+        organization: tokenDetails['organization'],
+        token: receipts[0]['contractAddress']
+      }
+
+      console.log(`Sending Data ${data} to Event Listener`)
+
       // Setup Event Listener for newly deployed token
-      this.watcher.eventListener.write({
-        type: 'WATCH_TOKEN',
-        data: {
-          organization: tokenDetails['organization'],
-          token: receipts[0]['contractAddress']
-        }
-      })
+      this.watcher.eventListener.write({ type: 'WATCH_TOKEN', data })
 
       resolve(receipts)
     }).catch((error) => {
