@@ -24,10 +24,10 @@ export default function pingEvent({
         token: receipts[0]['contractAddress']
       }
 
-      console.log(`Sending Data ${data} to Event Listener`)
+      console.log(`Sending Data ${JSON.stringify(data)} to Event Listener`)
 
       // Setup Event Listener for newly deployed token
-      this.watcher.eventListener.write({ type: 'WATCH_TOKEN', data })
+      this.watcher.eventListener.write(JSON.stringify({ type: 'WATCH_TOKEN', data }))
 
       resolve(receipts)
     }).catch((error) => {

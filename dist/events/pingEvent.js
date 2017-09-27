@@ -3,6 +3,11 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _stringify = require('babel-runtime/core-js/json/stringify');
+
+var _stringify2 = _interopRequireDefault(_stringify);
+
 exports.default = pingEvent;
 
 var _bluebird = require('bluebird');
@@ -37,10 +42,10 @@ function pingEvent(_ref) {
         token: receipts[0]['contractAddress']
       };
 
-      console.log('Sending Data ' + data + ' to Event Listener');
+      console.log('Sending Data ' + (0, _stringify2.default)(data) + ' to Event Listener');
 
       // Setup Event Listener for newly deployed token
-      _this.watcher.eventListener.write({ type: 'WATCH_TOKEN', data: data });
+      _this.watcher.eventListener.write((0, _stringify2.default)({ type: 'WATCH_TOKEN', data: data }));
 
       resolve(receipts);
     }).catch(function (error) {
