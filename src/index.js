@@ -47,15 +47,18 @@ export default class GitTokenWebHookManager extends GitTokenSignerClient {
   constructor({
     port,
     signerIpcPath,
+    watcherIpcPath,
     logDBPath,
     recoveryShare,
     mysqlHost,
     mysqlUser,
     mysqlRootPassword,
-    mysqlDatabase,
-    watcherIpcPath
+    mysqlDatabase
   }) {
-    super({ signerIpcPath })
+    super({
+      signerIpcPath,
+      watcherIpcPath
+    })
 
     // // Methods
     this.signLog              = signLog.bind(this)
@@ -75,6 +78,7 @@ export default class GitTokenWebHookManager extends GitTokenSignerClient {
 
     // Variables
     this.signerIpcPath        = signerIpcPath
+    this.watcherIpcPath       = watcherIpcPath
     this.recoveryShare        = recoveryShare
     // this.deployParams         = deployParams
 

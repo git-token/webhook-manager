@@ -84,17 +84,20 @@ var GitTokenWebHookManager = function (_GitTokenSignerClient) {
   function GitTokenWebHookManager(_ref) {
     var port = _ref.port,
         signerIpcPath = _ref.signerIpcPath,
+        watcherIpcPath = _ref.watcherIpcPath,
         logDBPath = _ref.logDBPath,
         recoveryShare = _ref.recoveryShare,
         mysqlHost = _ref.mysqlHost,
         mysqlUser = _ref.mysqlUser,
         mysqlRootPassword = _ref.mysqlRootPassword,
-        mysqlDatabase = _ref.mysqlDatabase,
-        watcherIpcPath = _ref.watcherIpcPath;
+        mysqlDatabase = _ref.mysqlDatabase;
     (0, _classCallCheck3.default)(this, GitTokenWebHookManager);
 
     // // Methods
-    var _this = (0, _possibleConstructorReturn3.default)(this, (GitTokenWebHookManager.__proto__ || (0, _getPrototypeOf2.default)(GitTokenWebHookManager)).call(this, { signerIpcPath: signerIpcPath }));
+    var _this = (0, _possibleConstructorReturn3.default)(this, (GitTokenWebHookManager.__proto__ || (0, _getPrototypeOf2.default)(GitTokenWebHookManager)).call(this, {
+      signerIpcPath: signerIpcPath,
+      watcherIpcPath: watcherIpcPath
+    }));
 
     _this.signLog = _index5.signLog.bind(_this);
     _this.verifyLog = _index5.verifyLog.bind(_this);
@@ -113,6 +116,7 @@ var GitTokenWebHookManager = function (_GitTokenSignerClient) {
 
     // Variables
     _this.signerIpcPath = signerIpcPath;
+    _this.watcherIpcPath = watcherIpcPath;
     _this.recoveryShare = recoveryShare;
     // this.deployParams         = deployParams
 
