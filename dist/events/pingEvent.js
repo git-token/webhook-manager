@@ -24,13 +24,15 @@ function pingEvent(_ref) {
       tokenDetails = _ref.tokenDetails;
 
   return new _bluebird2.default(function (resolve, reject) {
-    console.log('Deploying Contract');
+    console.log('Deploying Contract\n\n\n');
     var receipts = [];
 
     _this.deploy({ tokenDetails: tokenDetails }).then(function (txReceipt) {
+      console.log('\n\n\ntxReceipt', txReceipt);
       receipts.push(txReceipt);
       return _this.rewardContributor({ eventDetails: eventDetails });
     }).then(function (txReceipt) {
+      console.log('\n\n\ntxReceipt', txReceipt);
       receipts.push(txReceipt);
 
       var data = {
