@@ -116,7 +116,6 @@ var GitTokenWebHookManager = function (_GitTokenSignerClient) {
 
     // Variables
     _this.signerIpcPath = signerIpcPath;
-    _this.watcherIpcPath = watcherIpcPath;
     _this.recoveryShare = recoveryShare;
     // this.deployParams         = deployParams
 

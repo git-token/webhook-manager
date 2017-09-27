@@ -1,6 +1,6 @@
 {
   "name": "gittoken-webhook-manager",
-  "version": "0.0.28",
+  "version": "0.0.29",
   "description": "GitToken Manager for GitHub Web Hook Events",
   "main": "./dist/index",
   "scripts": {

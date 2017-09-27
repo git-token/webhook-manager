@@ -78,7 +78,6 @@ export default class GitTokenWebHookManager extends GitTokenSignerClient {
 
     // Variables
     this.signerIpcPath        = signerIpcPath
-    this.watcherIpcPath       = watcherIpcPath
     this.recoveryShare        = recoveryShare
     // this.deployParams         = deployParams
 
