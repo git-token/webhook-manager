@@ -31,8 +31,8 @@ export default function deploy({ tokenDetails }) {
     // console.log('payload', payload)
     this.signer.write(JSON.stringify(payload))
 
-    this.signer.pipe(split(JSON.parse)).on('data', (msg) => {
-      const { event, result, id } = msg
+    this.signer.on('data', (msg) => {
+      const { event, result, id } = JSON.parse(msg.toString('utf8'))
       if (event == 'deploy_contract' && msgID == id) {
         resolve(result)
       } else if (event == 'error' && msgID == id) {

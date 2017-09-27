@@ -30,8 +30,8 @@ export default function rewardContributor ({ eventDetails }) {
         }
       }))
 
-      this.signer.pipe(split(JSON.parse)).on('data', (msg) => {
-        const { event, result, id } = msg
+      this.signer.on('data', (msg) => {
+        const { event, result, id } = JSON.parse(msg.toString('utf8'))
         if (event == 'sign_contract_transaction' && id == msgID) {
           resolve(result)
         } else if (event == 'error' && id == msgID) {
