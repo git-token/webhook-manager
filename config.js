@@ -18,6 +18,7 @@ const config = {
   port: process.env['WEBHOOK_MANAGER_PORT'],
   recoveryShare:     process.env['RECOVERY_SHARE'],
   signerIpcPath:     process.env['SIGNER_IPC_PATH'],
+  watcherIpc:        process.env['WATCHER_IPC_PATH'],
   logDBPath:         process.env['LOG_DB_PATH'],
   recover:           process.env['RECOVER_KEYSTORE'],
   mysqlHost:         process.env['MYSQL_HOST'],
