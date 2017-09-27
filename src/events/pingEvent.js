@@ -11,7 +11,7 @@ export default function pingEvent({
   tokenDetails
 }) {
   return new Promise((resolve, reject) => {
-
+    console.log('Deploying Contract')
     let receipts = []
 
     this.deploy({ tokenDetails }).then((txReceipt) => {

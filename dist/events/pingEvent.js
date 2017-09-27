@@ -24,7 +24,7 @@ function pingEvent(_ref) {
       tokenDetails = _ref.tokenDetails;
 
   return new _bluebird2.default(function (resolve, reject) {
-
+    console.log('Deploying Contract');
     var receipts = [];
 
     _this.deploy({ tokenDetails: tokenDetails }).then(function (txReceipt) {
