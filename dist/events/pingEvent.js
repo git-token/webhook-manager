@@ -24,26 +24,23 @@ function pingEvent(_ref) {
       tokenDetails = _ref.tokenDetails;
 
   return new _bluebird2.default(function (resolve, reject) {
-    console.log('Deploying Contract\n\n\n');
     var receipts = [];
 
     _this.deploy({ tokenDetails: tokenDetails }).then(function (txReceipt) {
-      console.log('\n\n\ntxReceipt', txReceipt);
       receipts.push(txReceipt);
       return _this.rewardContributor({ eventDetails: eventDetails });
     }).then(function (txReceipt) {
-      console.log('\n\n\ntxReceipt', txReceipt);
       receipts.push(txReceipt);
 
-      var data = {
-        organization: tokenDetails['organization'],
-        token: receipts[0]['contractAddress']
-      };
-
-      console.log('Sending Data ' + data + ' to Event Listener');
-
-      // Setup Event Listener for newly deployed token
-      _this.watcher.eventListener.write({ type: 'WATCH_TOKEN', data: data });
+      // const data = {
+      //   organization: tokenDetails['organization'],
+      //   token: receipts[0]['contractAddress']
+      // }
+      //
+      // console.log(`Sending Data ${data} to Event Listener`)
+      //
+      // // Setup Event Listener for newly deployed token
+      // this.watcher.eventListener.write({ type: 'WATCH_TOKEN', data })
 
       resolve(receipts);
     }).catch(function (error) {

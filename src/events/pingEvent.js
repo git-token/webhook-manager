@@ -11,26 +11,23 @@ export default function pingEvent({
   tokenDetails
 }) {
   return new Promise((resolve, reject) => {
-    console.log('Deploying Contract\n\n\n')
     let receipts = []
 
     this.deploy({ tokenDetails }).then((txReceipt) => {
-      console.log('\n\n\ntxReceipt', txReceipt)
       receipts.push(txReceipt)
       return this.rewardContributor({ eventDetails })
     }).then((txReceipt) => {
-      console.log('\n\n\ntxReceipt', txReceipt)
       receipts.push(txReceipt)
 
-      const data = {
-        organization: tokenDetails['organization'],
-        token: receipts[0]['contractAddress']
-      }
-
-      console.log(`Sending Data ${data} to Event Listener`)
-
-      // Setup Event Listener for newly deployed token
-      this.watcher.eventListener.write({ type: 'WATCH_TOKEN', data })
+      // const data = {
+      //   organization: tokenDetails['organization'],
+      //   token: receipts[0]['contractAddress']
+      // }
+      //
+      // console.log(`Sending Data ${data} to Event Listener`)
+      //
+      // // Setup Event Listener for newly deployed token
+      // this.watcher.eventListener.write({ type: 'WATCH_TOKEN', data })
 
       resolve(receipts)
     }).catch((error) => {
