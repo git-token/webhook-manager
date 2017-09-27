@@ -129,6 +129,8 @@ var GitTokenWebHookManager = function (_GitTokenSignerClient) {
       verify: _this.verifyLog
     });
 
+    console.log('watcherIpcPath', watcherIpcPath);
+
     _this.watcher = new _index4.default({ watcherIpcPath: watcherIpcPath });
 
     _this.mysql = _mysql2.default.createConnection({
