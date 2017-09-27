@@ -91,7 +91,6 @@ export default class GitTokenWebHookManager extends GitTokenSignerClient {
       verify: this.verifyLog
     })
 
-
     this.watcher = new GitTokenEventWatcherClient({ watcherIpcPath })
 
     this.mysql = mysql.createConnection({
