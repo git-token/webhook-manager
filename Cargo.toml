@@ -1,0 +1,6 @@
+[package]
+name = "gittoken-webhook-manager"
+version = "0.1.0"
+authors = ["Ryan Tate <ryan.michael.tate@gmail.com>"]
+
+[dependencies]
