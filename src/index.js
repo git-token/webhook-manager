@@ -70,7 +70,7 @@ export default class GitTokenWebHookManager extends GitTokenSignerClient {
     this.validateOrganization = validateOrganization.bind(this)
     this.processRequest       = processRequest.bind(this)
     this.webhookRouter        = webhookRouter.bind(this)
-    // Deprecated // this.handleWebHookEvent   = handleWebHookEvent.bind(this)
+    this.handleWebHookEvent   = handleWebHookEvent.bind(this)
     this.rewardContributor    = rewardContributor.bind(this)
     this.calculateRewardBonus = calculateRewardBonus.bind(this)
     this.deploy               = deploy.bind(this)

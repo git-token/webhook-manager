@@ -19,12 +19,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  * @return [type]       [description]
  */
 function handleWebHookEvent(req, res) {
-  this.processEvent({
-    eventDetails: req.eventDetails,
-    tokenDetails: req.tokenDetails
-  }).then(function (result) {
-    res.status(200).send((0, _stringify2.default)(result, null, 2));
-  }).catch(function (error) {
-    res.status(500).send((0, _stringify2.default)(error, null, 2));
-  });
+  // If no errors were caught within middleware server, then succesfully
+  // send receipts to client
+  res.status(200).send((0, _stringify2.default)(req.receipts, null, 2));
 }

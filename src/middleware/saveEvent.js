@@ -6,9 +6,10 @@
  * @param  {Function} next [description]
  * @return [type]          [description]
  */
-export default function saveEvent(req, res) {
+export default function saveEvent(req, res, next) {
+  // Save event details
   this.insertIntoWebhook(req.eventDetails).then(() => {
-    res.status(200).send(JSON.stringify(req.receipts, null, 2));
+    next()
   }).catch((error) => {
     res.status(500).send(error.message)
   })

@@ -11,7 +11,7 @@ function webhookRouter() {
   var router = (0, _express.Router)();
 
   router.param('organization', this.validateOrganization);
-  router.post('/:organization', this.processRequest, this.saveEvent);
+  router.post('/:organization', this.processRequest, this.saveEvent, this.handleWebHookEvent);
 
   return router;
 }
