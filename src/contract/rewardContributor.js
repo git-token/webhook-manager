@@ -10,12 +10,16 @@ export default function rewardContributor ({ eventDetails }) {
   return new Promise((resolve, reject) => {
     const msgID = `reward_contributor_${new Date().getTime()}`
 
-    this.calculateRewardBonus({ eventDetails }).then((rewardBonus) => {
+    this.calculateTokenValues({ eventDetails }).then(({
+      rewardValue,
+      reservedValue
+    }) => {
       const params = [
         eventDetails['contributor'],
         eventDetails['event'],
         eventDetails['action'],
-        rewardBonus,
+        rewardValue,
+        reservedValue,
         eventDetails['delivery_id']
       ]
 
