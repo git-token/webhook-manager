@@ -22,26 +22,36 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 /**
  * [rewardContributor description]
- * @param  {[type]} eventDetails [description]
- * @return [type]                [description]
+ * @param  {[type]} contributor   [description]
+ * @param  {[type]} event         [description]
+ * @param  {[type]} eventType     [description]
+ * @param  {[type]} rewardValue   [description]
+ * @param  {[type]} reservedValue [description]
+ * @param  {[type]} deliveryID    [description]
+ * @return [type]                 [description]
  */
 function rewardContributor(_ref) {
   var _this = this;
 
-  var eventDetails = _ref.eventDetails;
+  var contributor = _ref.contributor,
+      event = _ref.event,
+      eventType = _ref.eventType,
+      rewardValue = _ref.rewardValue,
+      reservedValue = _ref.reservedValue,
+      deliveryID = _ref.deliveryID;
 
   return new _bluebird2.default(function (resolve, reject) {
-    var msgID = 'reward_contributor_' + new Date().getTime();
+    var msgID = 'reward_' + contributor + '_' + new Date().getTime() + '_' + deliveryID;
 
-    _this.calculateRewardBonus({ eventDetails: eventDetails }).then(function (rewardBonus) {
-      var params = [eventDetails['contributor'], eventDetails['event'], eventDetails['action'], rewardBonus, eventDetails['delivery_id']];
+    try {
+      var params = [contributor, event, eventType, rewardValue, reservedValue, deliveryID];
 
       _this.signer.write((0, _stringify2.default)({
         id: msgID,
         event: 'sign_contract_transaction',
         data: {
           recoveryShare: _this.recoveryShare,
-          organization: eventDetails['organization'],
+          organization: organization,
           method: 'rewardContributor',
           params: params
         }
@@ -59,8 +69,8 @@ function rewardContributor(_ref) {
           reject(result);
         }
       });
-    }).catch(function (error) {
+    } catch (error) {
       reject(error);
-    });
+    }
   });
 }

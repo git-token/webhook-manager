@@ -32,7 +32,7 @@ function deploy(_ref) {
 
   return new _bluebird2.default(function (resolve, reject) {
 
-    var msgID = 'deploy_contract_' + new Date().getTime();
+    var msgID = 'deploy_contract_' + new Date().getTime() + '_' + tokenDetails['organization'];
 
     var payload = {
       id: msgID,

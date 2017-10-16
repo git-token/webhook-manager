@@ -20,12 +20,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function processEvent(_ref) {
   var _this = this;
 
-  var eventDetails = _ref.eventDetails,
+  var request = _ref.request,
       tokenDetails = _ref.tokenDetails;
 
   return new _bluebird2.default(function (resolve, reject) {
+    var headers = request.headers,
+        payload = request.body.payload;
+
+
     _bluebird2.default.resolve().then(function () {
-      switch (eventDetails['event']) {
+      switch (headers['x-github-event']) {
         case 'ping':
           return _this.pingEvent({
             eventDetails: eventDetails,

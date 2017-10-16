@@ -1,11 +1,11 @@
 import processEvent from './processEvent'
-import calculateTokenValues from './calculateTokenValues'
+import calculateRewardValues from './calculateRewardValues'
 import signLog from './signLog'
 import verifyLog from './verifyLog'
 
 export {
   processEvent,
-  calculateTokenValues,
+  calculateRewardValues,
   signLog,
   verifyLog,
 }
