@@ -3,20 +3,33 @@ import split from 'split'
 
 /**
  * [rewardContributor description]
- * @param  {[type]} eventDetails [description]
- * @return [type]                [description]
+ * @param  {[type]} contributor   [description]
+ * @param  {[type]} event         [description]
+ * @param  {[type]} eventType     [description]
+ * @param  {[type]} rewardValue   [description]
+ * @param  {[type]} reservedValue [description]
+ * @param  {[type]} deliveryID    [description]
+ * @return [type]                 [description]
  */
-export default function rewardContributor ({ eventDetails }) {
+export default function rewardContributor({
+  contributor,
+  event,
+  eventType,
+  rewardValue,
+  reservedValue,
+  deliveryID
+}) {
   return new Promise((resolve, reject) => {
-    const msgID = `reward_contributor_${new Date().getTime()}`
+    const msgID = `reward_${contributor}_${new Date().getTime()}_${deliveryID}`
 
-    this.calculateRewardBonus({ eventDetails }).then((rewardBonus) => {
+    try {
       const params = [
-        eventDetails['contributor'],
-        eventDetails['event'],
-        eventDetails['action'],
-        rewardBonus,
-        eventDetails['delivery_id']
+        contributor,
+        event,
+        eventType,
+        rewardValue,
+        reservedValue,
+        deliveryID
       ]
 
       this.signer.write(JSON.stringify({
@@ -24,7 +37,7 @@ export default function rewardContributor ({ eventDetails }) {
         event: 'sign_contract_transaction',
         data: {
           recoveryShare: this.recoveryShare,
-          organization: eventDetails['organization'],
+          organization,
           method: 'rewardContributor',
           params
         }
@@ -38,9 +51,8 @@ export default function rewardContributor ({ eventDetails }) {
           reject(result)
         }
       })
-
-    }).catch((error) => {
+    } catch (error) {
       reject(error)
-    })
+    }
   })
 }

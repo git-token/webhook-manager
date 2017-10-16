@@ -13,8 +13,7 @@ import GitTokenEventWatcherClient from 'gittoken-event-listener/dist/client/inde
 import {
   processEvent,
   signLog,
-  verifyLog,
-  calculateRewardBonus
+  verifyLog
 } from './utils/index'
 
 import {
@@ -33,7 +32,8 @@ import {
 } from './controllers/index'
 
 import {
-  pingEvent
+  pingEvent,
+  gollumEvent
 } from './events/index'
 
 import {
@@ -61,24 +61,24 @@ export default class GitTokenWebHookManager extends GitTokenSignerClient {
     })
 
     // // Methods
-    this.signLog              = signLog.bind(this)
-    this.verifyLog            = verifyLog.bind(this)
-    this.processEvent         = processEvent.bind(this)
-    this.selectFromRegistry   = selectFromRegistry.bind(this)
-    this.insertIntoWebhook    = insertIntoWebhook.bind(this)
-    this.saveEvent            = saveEvent.bind(this)
-    this.validateOrganization = validateOrganization.bind(this)
-    this.processRequest       = processRequest.bind(this)
-    this.webhookRouter        = webhookRouter.bind(this)
-    this.handleWebHookEvent   = handleWebHookEvent.bind(this)
-    this.rewardContributor    = rewardContributor.bind(this)
-    this.calculateRewardBonus = calculateRewardBonus.bind(this)
-    this.deploy               = deploy.bind(this)
-    this.pingEvent            = pingEvent.bind(this)
+    this.signLog               = signLog.bind(this)
+    this.verifyLog             = verifyLog.bind(this)
+    this.processEvent          = processEvent.bind(this)
+    this.selectFromRegistry    = selectFromRegistry.bind(this)
+    this.insertIntoWebhook     = insertIntoWebhook.bind(this)
+    this.saveEvent             = saveEvent.bind(this)
+    this.validateOrganization  = validateOrganization.bind(this)
+    this.processRequest        = processRequest.bind(this)
+    this.webhookRouter         = webhookRouter.bind(this)
+    this.handleWebHookEvent    = handleWebHookEvent.bind(this)
+    this.rewardContributor     = rewardContributor.bind(this)
+    this.deploy                = deploy.bind(this)
+    this.pingEvent             = pingEvent.bind(this)
+    this.gollumEvent           = gollumEvent.bind(this)
 
     // Variables
-    this.signerIpcPath        = signerIpcPath
-    this.recoveryShare        = recoveryShare
+    this.signerIpcPath         = signerIpcPath
+    this.recoveryShare         = recoveryShare
     // this.deployParams         = deployParams
 
     // Hyperlog DAG Store

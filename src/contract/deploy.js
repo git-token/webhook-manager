@@ -9,7 +9,7 @@ import split from 'split'
 export default function deploy({ tokenDetails }) {
   return new Promise((resolve, reject) => {
 
-    const msgID = `deploy_contract_${new Date().getTime()}`
+    const msgID = `deploy_contract_${new Date().getTime()}_${tokenDetails['organization']}`
 
     const payload = {
       id: msgID,

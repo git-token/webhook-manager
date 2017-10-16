@@ -1,0 +1,37 @@
+version: '3.0'
+volumes:
+  signer-volume:
+  ipc-volume:
+  log-volume:
+services:
+  listener:
+    env_file:
+      - ../node_modules/gittoken-event-listener/.env
+    build:
+      context: ../node_modules/gittoken-event-listener/.
+    ipc: signer
+    volumes:
+      - ipc-volume:/tmp/
+  signer:
+    env_file:
+      - ../node_modules/gittoken-signer/.env
+    build:
+      context: ../node_modules/gittoken-signer/.
+    ipc: host
+    volumes:
+      - signer-volume:/keystore/
+      - ipc-volume:/tmp/
+  webhookmgr:
+    ports:
+      - 3000:3000
+    env_file:
+      - ../.env
+    build:
+      context: .
+    depends_on:
+      - listener
+      - signer
+    ipc: signer
+    volumes:
+      - log-volume:/db
+      - ipc-volume:/tmp/

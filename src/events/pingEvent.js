@@ -6,18 +6,26 @@ import Promise from 'bluebird'
  * @param  {[type]} tokenDetails [description]
  * @return [type]                [description]
  */
-export default function pingEvent({
-  eventDetails,
-  tokenDetails
-}) {
+export default function pingEvent({  payload, headers, tokenDetails }) {
   return new Promise((resolve, reject) => {
     let receipts = []
 
     this.deploy({ tokenDetails }).then((txReceipt) => {
       receipts.push(txReceipt)
-      return this.rewardContributor({ eventDetails })
+      return this.rewardContributor({
+        contributor: payload['sender']['login'],
+        event: 'ping',
+        eventType: '',
+        rewardValue: rewardValues['ping'],
+        reservedValue: reservedValues['ping'],
+        deliveryID: headers['x-github-delivery'],
+        organization: payload['organization']['login']
+      })
     }).then((txReceipt) => {
       receipts.push(txReceipt)
+
+      /*
+      NOTE: Consider removing Listener Service from Webhook process.
 
       const data = {
         organization: tokenDetails['organization'],
@@ -28,6 +36,8 @@ export default function pingEvent({
 
       // Setup Event Listener for newly deployed token
       this.watcher.eventListener.write(JSON.stringify({ type: 'WATCH_TOKEN', data }))
+       */
+
 
       resolve(receipts)
     }).catch((error) => {

@@ -110,9 +110,9 @@ var GitTokenWebHookManager = function (_GitTokenSignerClient) {
     _this.webhookRouter = _index12.default.bind(_this);
     _this.handleWebHookEvent = _index8.handleWebHookEvent.bind(_this);
     _this.rewardContributor = _index10.rewardContributor.bind(_this);
-    _this.calculateRewardBonus = _index5.calculateRewardBonus.bind(_this);
     _this.deploy = _index10.deploy.bind(_this);
     _this.pingEvent = _index9.pingEvent.bind(_this);
+    _this.gollumEvent = _index9.gollumEvent.bind(_this);
 
     // Variables
     _this.signerIpcPath = signerIpcPath;

@@ -1,0 +1,40 @@
+sudo: required
+
+language: node_js
+
+node_js:
+- "7"
+
+services:
+  - docker
+
+env:
+  - DOCKER_COMPOSE_VERSION=1.11.2
+
+addons:
+  apt:
+    packages:
+    - linux-image-extra-$(uname -r)
+    - linux-image-extra-virtual
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - software-properties-common
+    - docker-ce=17.06.0~ce-0~ubuntu
+
+before_install:
+  # update is required to update the repositories to see the new packages for
+  # Docker.
+
+  # Print out the current docker-compose version. Once this reports 1.6+ then we
+  # do not need the following steps.
+  - docker-compose --version
+
+  # Update docker-compose version
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+
+  # Run docker-compose
+  - docker-compose up --build ./test/docker-compose.yml

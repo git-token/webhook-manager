@@ -6,10 +6,12 @@ import Promise from 'bluebird'
  * @param  {Object} tokenDetails [description]
  * @return [type]                [description]
  */
-export default function processEvent({ eventDetails, tokenDetails }) {
+export default function processEvent({ request, tokenDetails }) {
   return new Promise((resolve, reject) => {
+    const { headers, body: { payload } } = request
+
     Promise.resolve().then(() => {
-      switch(eventDetails['event']) {
+      switch(headers['x-github-event']) {
         case 'ping':
           return this.pingEvent({
             eventDetails,
