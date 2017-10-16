@@ -11,19 +11,20 @@ services:
 env:
   - DOCKER_COMPOSE_VERSION=1.11.2
 
+addons:
+  apt:
+    packages:
+    - linux-image-extra-$(uname -r)
+    - linux-image-extra-virtual
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - software-properties-common
+    - docker-ce=17.06.0~ce-0~ubuntu
+
 before_install:
   # update is required to update the repositories to see the new packages for
   # Docker.
-  -
-
-  - sudo apt-get update \
-      sudo apt-get install \
-      linux-image-extra-$(uname -r) \
-      linux-image-extra-virtual \
-      apt-transport-https \
-      ca-certificates \
-      curl \
-      software-properties-common
 
   - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
@@ -31,9 +32,6 @@ before_install:
       "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
       $(lsb_release -cs) \
       stable"
-
-  - sudo apt-get update \
-      sudo apt-get install docker-ce=17.06.0~ce-0~ubuntu
 
   # Print out the current docker-compose version. Once this reports 1.6+ then we
   # do not need the following steps.
