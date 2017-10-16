@@ -28,6 +28,9 @@ services:
       - ../.env
     build:
       context: .
+    depends_on:
+      - listener
+      - signer
     ipc: signer
     volumes:
       - log-volume:/db
