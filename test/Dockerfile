@@ -2,8 +2,6 @@
 
 FROM node:6.11.0
 
-RUN npm i -g mocha
-
 WORKDIR /gittoken-webhook-manager
 
 ADD . .
