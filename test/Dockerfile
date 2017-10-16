@@ -10,4 +10,4 @@ ADD . .
 
 RUN npm install
 
-CMD [mocha]
+CMD mocha
