@@ -26,10 +26,10 @@
     "dotenv": "^4.0.0",
     "ethereumjs-util": "^5.1.2",
     "express": "^4.15.4",
-    "gittoken-event-listener": "0.0.12",
+    "gittoken-event-listener": "0.0.13",
     "gittoken-registry": "0.0.1",
     "gittoken-reward-values": "0.0.1",
-    "gittoken-signer": "0.0.37",
+    "gittoken-signer": "0.0.44",
     "hyperlog": "^4.12.1",
     "level": "^1.7.0",
     "request": "^2.81.0",
@@ -48,8 +48,6 @@
     "babel-preset-stage-0": "^6.24.1",
     "babel-runtime": "^6.23.0",
     "chai": "^4.0.1",
-    "gittoken-event-listener": "0.0.13",
-    "gittoken-signer": "0.0.44",
     "mocha": "^4.0.1"
   }
 }
