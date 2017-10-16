@@ -6,7 +6,7 @@ volumes:
 services:
   listener:
     env_file:
-      - ./environment/listener.env
+      - ../node_modules/gittoken-event-listener/.env
     build:
       context: ../node_modules/gittoken-event-listener/.
     ipc: signer
@@ -14,7 +14,7 @@ services:
       - ipc-volume:/tmp/
   signer:
     env_file:
-      - ./environment/signer.env
+      - ../node_modules/gittoken-signer/.env
     build:
       context: ../node_modules/gittoken-signer/.
     ipc: host
