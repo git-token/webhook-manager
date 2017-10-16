@@ -6,7 +6,7 @@ RUN npm i -g mocha
 
 WORKDIR /gittoken-webhook-manager
 
-ADD . .
+ADD ../ .
 
 RUN npm install
 
